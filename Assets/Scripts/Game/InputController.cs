@@ -2,34 +2,44 @@ using UnityEngine;
 
 public class InputController : Controller
 {
-   public bool ScaleInputt(GameObject _objectToScale, Vector2 _direction) 
+    [SerializeField] private int playerIndex = 0;
+
+
+    public int GetPlayerIndex() 
     {
-        if(_instantiateObj != null && !_player.isMoving) 
+        return playerIndex;
+    }
+
+    public bool Scale() 
         {
-            if (coroutine != null)
-                StopCoroutine(coroutine);
-
-            if(!stopScalingCuzEndPointReached) 
+            // CHECK IF INSTANTIATED OBJECT IS NOT NULL
+            if(_instantiateObj != null) 
             {
-                isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
-                coroutine = StartCoroutine(Scaling(_objectToScale, _direction));
-            } 
+                // CHECK IF COROUTINE IS ALREADY RUNNING
+                if (coroutine != null)
+                    StopCoroutine(coroutine); // STOP
 
-            return true;
+
+                // CHECK IF SCALING IS STOPPED
+                if(!stopScalingCuzEndPointReached) 
+                {
+                    isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
+                    coroutine = StartCoroutine(CalculateScaling(extendPoint1.gameObject, Vector2.right));
+                } 
+
+                return true;
+            }
+
+            return false;
         }
 
-        return false;
-    }
+        public void Teleport() 
+        {
+            stopScalingCuzEndPointReached = false;
+            StartCoroutine(ExpandBackTowardsEndPoint(extendPoint2.gameObject, transform.localScale));
+        }
 
-    protected void TeleportInput(GameObject _objectToScale2) 
-    {
-        // Move player to the endpoint
-        stopScalingCuzEndPointReached = false;
-        StartCoroutine(ExpandBackTowardsEndPoint(_objectToScale2, transform.localScale));
-        timer = 0;
-    }
-
-    
+        
 
     // public bool CheckIfSopScaling(GameObject __objectToScale) 
     // {
