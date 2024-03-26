@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475139a87bf36d6449d7ddefbc1340ec, type: 3}
+  m_Name: Object_Ladder
+  m_EditorClassIdentifier: 
+  object: {fileID: 5368842726334716029, guid: 25f4874f48161cd428ab4589b6127498, type: 3}
+  detectObj: {fileID: 2194041748212303040, guid: 2995f5c9eba479244a24a698210017a2, type: 3}
+  startObj: {fileID: 2884031325983474466, guid: b9a6a06024675584395b897309328113, type: 3}
+  initialScale: {x: 1, y: 0.5, z: 1}
