@@ -19,6 +19,9 @@ public class Mover : MonoBehaviour
     public LayerMask layermask;
     public GameObject playerRenderer;
     public bool playerDetected;
+    public bool ableToJump;
+    public float jumpForce = 5f;
+
 
 
     void Awake()
@@ -59,25 +62,41 @@ public class Mover : MonoBehaviour
 
     void MovePlayer() 
     {
-       if(!inputContr.isExpanding && !inputContr.isExpandingBack 
+        isMoving = true;
+        if(!inputContr.isExpanding && !inputContr.isExpandingBack 
         && !inputContr.stopScalingCuzEndPointReached && playerIsGrounded) 
         {
             if(!playerDetected)
                 inputDirection.y = 0f; 
-        }
 
-        inputDirection = new(inputVector.x, 0);
-        inputDirection = transform.TransformDirection(inputDirection);
-        inputDirection *= moveSpeed;
+
+            inputDirection = new(inputVector.x, 0);
+            inputDirection = transform.TransformDirection(inputDirection);
+            inputDirection *= moveSpeed;
+            isMoving = true;
+        }
 
         // Apply movement
         rb.velocity = new Vector2(inputDirection.x, rb.velocity.y);
+    }
+
+    public void Jump() 
+    {
+        ableToJump = false;
+
+        if(playerIsGrounded) 
+        {   
+            ableToJump = true;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        
+        } else { ableToJump = false; }
     }
 
     // Extend Ability
     public void UseAbility() 
     {
         inputContr.Scale();
+        playerRenderer.SetActive(false);
     }
 
 

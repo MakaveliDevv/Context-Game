@@ -73,10 +73,8 @@ public class DetectionPoint : MonoBehaviour
         Collider2D hitPoint = Physics2D.OverlapCircle(transform.position, detectRadius);
 
         if (hitPoint != null)
-        {
-            Point point = hitPoint.GetComponent<Point>();
-
-            if (point != null)
+        {   
+            if (hitPoint.TryGetComponent<Point>(out var point))
             {
                 gameManager.connectPointList.Add(point);
                 Debug.Log("Connect point detected!");
@@ -93,3 +91,6 @@ public class DetectionPoint : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 }
+
+
+

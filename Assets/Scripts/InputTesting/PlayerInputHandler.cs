@@ -31,6 +31,15 @@ public class PlayerInputHandler : MonoBehaviour
           mover.SetInputVector(ctx.ReadValue<Vector2>());
      }
 
+     public void JumpInput(InputAction.CallbackContext ctx) 
+     {
+          if(ctx.performed) 
+          {
+               mover.Jump();
+               Debug.Log("We can jump");
+          }
+     }
+
      public void AbilityInput(InputAction.CallbackContext ctx) 
      {
           if(ctx.performed) 
