@@ -2,203 +2,37 @@ using UnityEngine;
 
 public class InputController : Controller
 {
-    [SerializeField] private int playerIndex = 0;
-
-
-    public int GetPlayerIndex() 
+    public void Extend() 
     {
-        return playerIndex;
-    }
-
-
-
-    public bool Scale() 
-        {
-            // CHECK IF INSTANTIATED OBJECT IS NOT NULL
-            // if(_instantiateObj != null) 
+        // CHECK IF INSTANTIATED OBJECT IS NOT NULL
+        // if(_instantiateObj != null) 
+        // {
+            // CHECK IF COROUTINE IS ALREADY RUNNING
+            // if (coroutine != null) 
             // {
-                // CHECK IF COROUTINE IS ALREADY RUNNING
-                if (coroutine != null) 
-                {
-                    StopCoroutine(coroutine); // STOP
+                // StopCoroutine(coroutine); // STOP
 
-                    coroutine = StartCoroutine(CalculateScaling(extendPoint1.gameObject));
-                }
-
-
-                // CHECK IF SCALING IS STOPPED
-                // if(!stopScalingCuzEndPointReached) 
-                // {
-                    // isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
-                // } 
-
-                return true;
+                // coroutine = StartCoroutine(ExtendObject(extendPoint1.gameObject));
+                StartCoroutine(ExtendObject(extendPoint1.gameObject));
             // }
 
-            // return false;
-        }
 
-        public void Teleport() 
-        {
-            stopScalingCuzEndPointReached = false;
-            StartCoroutine(ExpandBackTowardsEndPoint(extendPoint2.gameObject, transform.localScale));
-        }
+            // CHECK IF SCALING IS STOPPED
+            // if(!stopScalingCuzEndPointReached) 
+            // {
+                // isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
+            // } 
 
-        
+            // return true;
+        // }
 
-    // public bool CheckIfSopScaling(GameObject __objectToScale) 
-    // {
-    //     if (stopScalingCuzEndPointReached) 
-    //     {
-    //         timer += Time.deltaTime; // Accumulate elapsed time
+        // return false;
+    }
 
-    //         if (timer >= timeUntilScaleBack) // Check if the timer has reached or exceeded the desired time
-    //         {
-    //             // Scale back
-    //             coroutine = StartCoroutine(ScaleBack(_objectToScale, _objectToScale.transform.localScale, _scriptObj.initialScale));
-    //             stopScalingCuzEndPointReached = false;
+    public void Teleport() 
+    {
+        stopScalingCuzEndPointReached = false;
+        StartCoroutine(ExpandBackTowardsEndPoint(extendPoint2.gameObject, transform.localScale));
+    }
 
-    //             if(Input.GetKeyDown(_keyCodeExtend)) // Press down to extend a bridge/ladder
-    //             {
-    //                 if(coroutine != null)
-    //                     StopCoroutine(coroutine);
-
-    //                 StartCoroutine(Scaling(_objectToScale, _direction)); 
-    //                 // Debug.Log("Can scale from scaling back after freezing and time ran out");
-    //                 return true;
-    //             }
-
-    //             // Reset the timer for the next iteration
-    //             timer = 0;
-    //             return true;
-
-            
-    //         } 
-        
-    //         else if(Input.GetKeyDown(_keyCodeScaleBackToEnd)) // To go to the end point (is for the artist)  && playerManag.playerType == PlayerManager.PlayerType.ARTIST
-    //         {
-    //             // Move player to the endpoint
-    //             stopScalingCuzEndPointReached = false;
-    //             StartCoroutine(ExpandBackTowardsEndPoint(_objectToScale2, transform.localScale));
-    //             timer = 0;
-    //             // Debug.Log("Can scale back from start to end point");
-    //             return true;
-
-    //         }
-    //     }
-    // }
-
-    // public bool ScaleInput
-    // (
-    //     GameObject _objectToScale,
-    //     GameObject _objectToScale2,
-    //     Vector2 _direction, 
-    //     KeyCode _keyCodeExtend, 
-    //     KeyCode _keyCodeScaleBackToEnd,
-    //     GameObject _instantiatedObj
-    // ) 
-    // {
-    //     if(_instantiatedObj != null)
-    //     {
-    //         if (Input.GetKeyDown(_keyCodeExtend) && !_player.isMoving) // Press down to extend a bridge/ladder
-    //         {
-    //             // If scaling coroutine is running, stop it
-    //             if (coroutine != null)
-    //                 StopCoroutine(coroutine);
-
-    //             if(!stopScalingCuzEndPointReached) 
-    //             {
-    //                 isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
-    //                 coroutine = StartCoroutine(Scaling(_objectToScale, _direction));
-    //                 // Debug.Log("Can scale");
-    //                 return true;
-    //             } 
-                
-    //         } else if (Input.GetKeyUp(_keyCodeExtend)) // Release to extend back
-    //         {            
-    //             // If scaling coroutine is running, stop it and start scaling back
-    //             if (coroutine != null) 
-    //                 StopCoroutine(coroutine);
-
-    //             // If endpoint is detected cant scale back
-    //             if(!stopScalingCuzEndPointReached) 
-    //             {
-    //                 isExpanding = false;
-    //                 coroutine = StartCoroutine(ScaleBack(_objectToScale, _objectToScale.transform.localScale, _scriptObj.initialScale));
-    //                 // Debug.Log("Can scale back");
-    //                 return true;
-    //             }
-    //         }
-
-
-    //         if (stopScalingCuzEndPointReached) 
-    //         {
-    //             timer += Time.deltaTime; // Accumulate elapsed time
-
-    //             if (timer >= timeUntilScaleBack) // Check if the timer has reached or exceeded the desired time
-    //             {
-    //                 // Scale back
-    //                 coroutine = StartCoroutine(ScaleBack(_objectToScale, _objectToScale.transform.localScale, _scriptObj.initialScale));
-    //                 stopScalingCuzEndPointReached = false;
-
-    //                 if(Input.GetKeyDown(_keyCodeExtend)) // Press down to extend a bridge/ladder
-    //                 {
-    //                     if(coroutine != null)
-    //                         StopCoroutine(coroutine);
-
-    //                     StartCoroutine(Scaling(_objectToScale, _direction)); 
-    //                     // Debug.Log("Can scale from scaling back after freezing and time ran out");
-    //                     return true;
-    //                 }
-
-    //                 // Reset the timer for the next iteration
-    //                 timer = 0;
-    //                 return true;
-
-                
-    //             } 
-           
-    //             else if(Input.GetKeyDown(_keyCodeScaleBackToEnd)) // To go to the end point (is for the artist)  && playerManag.playerType == PlayerManager.PlayerType.ARTIST
-    //             {
-    //                 // Move player to the endpoint
-    //                 stopScalingCuzEndPointReached = false;
-    //                 StartCoroutine(ExpandBackTowardsEndPoint(_objectToScale2, transform.localScale));
-    //                 timer = 0;
-    //                 // Debug.Log("Can scale back from start to end point");
-    //                 return true;
-
-    //             }
-    //         }
-
-    //     } else 
-    //     {
-    //         Debug.Log("Can't scale because no object in the scene");    
-    //         return false;
-    //     }
-        
-    //     return false;
-    // }
 }
-
-     // else if(Input.GetKeyDown(_keyCodeRelease)) // Scale back to initial positon after reaching end point
-                // {
-                //     stopScalingCuzEndPointReached = false;
-                //     coroutine = StartCoroutine(ScaleBack(_objectToScale, _objectToScale.transform.localScale, _scriptObj.initialScale));
-
-                //     if(Input.GetKeyDown(_keyCodeExtend)) // Release to extend back
-                //     {
-                //         if(coroutine != null)
-                //             StopCoroutine(coroutine);
-
-                //         StartCoroutine(Scaling(_objectToScale, _direction)); 
-                //         // Debug.Log("Can scale from scaling back after freezing and pressing scale back button");
-                //         return true;
-
-                //     }
-
-                //     // Reset the timer for the next iteration
-                //     timer = 0;
-                //     return true;
-
-                        
-                // } 

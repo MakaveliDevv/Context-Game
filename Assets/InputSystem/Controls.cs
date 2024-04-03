@@ -135,7 +135,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f0b1425f-c508-443a-ab2c-d4f248becb9c"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ability"",

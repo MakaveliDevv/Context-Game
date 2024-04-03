@@ -36,9 +36,12 @@ public class Controller : MonoBehaviour
     [SerializeField] private Vector3 teleportOffset;
     [SerializeField] private float timeToSpawnObject = 1f;
     public float initialScaleX;
-    public float targetScaleX;
     public float extendDistance = 5f;
     public float extendSpeed = 5f;
+    private float extendTime = 0f;
+    private bool isExtending = false;
+    public float extendDuration = 4f; // Initialize extendDuration with desired value
+
 
 
     void Start() 
@@ -46,6 +49,7 @@ public class Controller : MonoBehaviour
         player = GetComponentInParent<Mover>();
         // StartCoroutine(CreateObject());
         initialScaleX = transform.localScale.x;
+        CreateObject();
 
     }
 
@@ -59,13 +63,8 @@ public class Controller : MonoBehaviour
         }
     }
 
-    protected IEnumerator CreateObject() 
+    public void CreateObject() 
     {
-        // isDestroyed = false; 
-        // objectCreated = false;
-
-        yield return new WaitForSeconds(timeToSpawnObject);
-
         // CHECK IF OBJECT IS NULL
         if (instantiateObj == null)
         {   
@@ -108,55 +107,75 @@ public class Controller : MonoBehaviour
             // FLAG OBJECT CREATED            
             objectCreated = true;
         }
-
     }
 
-    public void ExtendObject() 
+   
+    public IEnumerator ExtendObject(GameObject _scaleObj)
     {
-        if(Input.GetKeyDown(KeyCode.L)) 
+        if (isExtending)
+            yield break; // Exit the coroutine if already extending
+
+        isExtending = true;
+
+        // Calculate the target scale
+        float targetScaleX = initialScaleX + extendDistance;
+
+        // While the current scale is less than the target scale
+        while (_scaleObj.transform.localScale.x < targetScaleX)
         {
-            StartCoroutine(CreateObject()); 
-        }
-    }
+            // Increment the extend time
+            extendTime += Time.deltaTime;
 
-    protected IEnumerator CalculateScaling(GameObject _scaleObj)
-    {
-        Debug.Log("Calculate scaling method");
+            // Calculate the new scale based on the extend time
+            float newScaleX = _scaleObj.transform.localScale.x + extendSpeed * Time.deltaTime;
 
-        yield return StartCoroutine(CreateObject()); 
-
-        while (true) // Continuously scale
-        {
-            // Fetch the target scale
-            targetScaleX = initialScaleX + extendDistance;
-            
-            // Calculate the scaling process
-            float newScaleX = Mathf.Lerp(_scaleObj.transform.localScale.x, targetScaleX, extendSpeed * Time.deltaTime);
+            // Ensure the new scale doesn't exceed the target scale
+            newScaleX = Mathf.Min(newScaleX, targetScaleX);
 
             // Extend the object
             _scaleObj.transform.localScale = new Vector3(newScaleX, _scaleObj.transform.localScale.y, _scaleObj.transform.localScale.z);
-            
-            // Flag it to true
-            isExpanding = true;
 
-            CapsuleCollider2D capsuleCol = GetComponent<CapsuleCollider2D>();
-            capsuleCol.isTrigger = false;
-
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            
-            // Get the script compontent
-            _detectPoint = detectObj.GetComponent<DetectionPoint>();
-
-            // Check for a collision while expanding
-            if (_detectPoint.PointDetected())
-            {                
-                // Stop scaling once reaching a checkpoint
-                FreezeScaling(_scaleObj, _scaleObj.transform.localScale);
-            } 
+            yield return null;
         }
+
+        // Reset extend time and flag
+        extendTime = 0f;
+        isExtending = false;
     }
+
+        // Fetch the target scale
+        // targetScaleX = initialScaleX + extendDistance;
+
+        // Calculate the scaling process
+        // float newScaleX = Mathf.Lerp(_scaleObj.transform.localScale.x, targetScaleX, extendSpeed * Time.deltaTime);
+
+        // Extend the object
+        // _scaleObj.transform.localScale = new Vector3(newScaleX, _scaleObj.transform.localScale.y, _scaleObj.transform.localScale.z);
+
+        // Flag it to true
+        // isExpanding = true;
+
+        // CapsuleCollider2D capsuleCol = GetComponent<CapsuleCollider2D>();
+        // capsuleCol.isTrigger = false;
+
+        // Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        // rb.constraints = RigidbodyConstraints2D.None;
+        // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        // Get the script compontent
+        // _detectPoint = detectObj.GetComponent<DetectionPoint>();
+
+        // while (true) // Continuously scale
+        // {
+        // Check for a collision while expanding
+        // if (_detectPoint.PointDetected())
+        // {                
+        //     // Stop scaling once reaching a checkpoint
+        //     FreezeScaling(_scaleObj, _scaleObj.transform.localScale);
+        // } 
+        // }
+
+        // yield return null;
 
     protected IEnumerator ScaleBack(GameObject _scaleObj, Vector3 _startScale, Vector3 _targetScale)
     {

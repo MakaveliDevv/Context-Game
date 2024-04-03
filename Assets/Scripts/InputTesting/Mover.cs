@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour
     private Rigidbody2D rb;
     public bool isMoving = false;
 
-    private InputController inputContr;
+    private InputController controller;
 
     [SerializeField] private int playerIndex = 0;
     public bool playerIsGrounded;
@@ -24,15 +24,15 @@ public class Mover : MonoBehaviour
 
 
 
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        inputContr = GetComponent<InputController>();
+        controller = GetComponent<InputController>();
     }
     void Start() 
     {
         vecGravity = new(0f, - Physics2D.gravity.y);
-
     }
 
     public int GetPlayerIndex() 
@@ -62,9 +62,8 @@ public class Mover : MonoBehaviour
 
     void MovePlayer() 
     {
-        isMoving = true;
-        if(!inputContr.isExpanding && !inputContr.isExpandingBack 
-        && !inputContr.stopScalingCuzEndPointReached && playerIsGrounded) 
+        if(!controller.isExpanding && !controller.isExpandingBack 
+        && !controller.stopScalingCuzEndPointReached && playerIsGrounded) 
         {
             if(!playerDetected)
                 inputDirection.y = 0f; 
@@ -73,11 +72,16 @@ public class Mover : MonoBehaviour
             inputDirection = new(inputVector.x, 0);
             inputDirection = transform.TransformDirection(inputDirection);
             inputDirection *= moveSpeed;
-            isMoving = true;
         }
 
         // Apply movement
         rb.velocity = new Vector2(inputDirection.x, rb.velocity.y);
+
+        if(rb.velocity.sqrMagnitude > .03f) 
+            isMoving = true;
+        else 
+            isMoving = false;
+        
     }
 
     public void Jump() 
@@ -93,8 +97,10 @@ public class Mover : MonoBehaviour
     // Extend Ability
     public void UseAbility() 
     {
+        controller.Extend();
         // Invoke the scale input
-        inputContr.Scale();
+        // controller.Scale();
+        // controller.isExpanding = true;
 
         // Turn on the trigger so other players dont collide
         // CapsuleCollider2D capsuleCol = GetComponent<CapsuleCollider2D>();
@@ -109,6 +115,6 @@ public class Mover : MonoBehaviour
     // Teleport Ability
     public void UseTeleport() 
     {
-        inputContr.Teleport();
+        // controller.Teleport();
     }
 }
