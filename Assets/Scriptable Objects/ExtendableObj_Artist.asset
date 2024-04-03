@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 475139a87bf36d6449d7ddefbc1340ec, type: 3}
-  m_Name: Object_Dev
+  m_Name: ExtendableObj_Artist
   m_EditorClassIdentifier: 
-  object: {fileID: 856841965997008045, guid: ce7561bd78c01644ba8a17b6d7efcd7d, type: 3}
+  extendableObj: {fileID: 856841965997008045, guid: 4fa6a2f7a5a34dc4eb3b68063d63fd1d, type: 3}
   detectObj: {fileID: 2194041748212303040, guid: 2995f5c9eba479244a24a698210017a2, type: 3}
-  startObj: {fileID: 8718376974585649467, guid: 7c2f126ed025c8e4088985e05db99e42, type: 3}
+  startObj: {fileID: 2884031325983474466, guid: b9a6a06024675584395b897309328113, type: 3}
   initialScale: {x: 1, y: 1, z: 1}

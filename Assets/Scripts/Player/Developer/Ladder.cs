@@ -7,36 +7,39 @@ using UnityEngine.InputSystem;
 
 public class Ladder : MonoBehaviour
 {
-    PlayerManager _playerManag;
+    // PlayerManager _playerManag;
     private Rigidbody2D rbPlayer;
     private Mover _mover;
     public float speed = 6f;
     
     #pragma warning disable IDE0052 // Remove unread private members
-    private bool playerMovingOnLadder = false;
+    public bool playerMovingOnLadder = false;
     #pragma warning restore IDE0052 // Remove unread private members
 
     private void OnTriggerStay2D(Collider2D collider) 
     {
         if (collider.CompareTag("Player")) 
         {
-            _playerManag = collider.GetComponent<PlayerManager>();
+            // _playerManag = collider.GetComponent<PlayerManager>();
             _mover = collider.GetComponent<Mover>();
             rbPlayer = collider.GetComponent<Rigidbody2D>();
             
-            if(_playerManag.playerType != PlayerManager.PlayerType.DEVELOPER) 
-            {
+            // if(_playerManag.playerType != PlayerManager.PlayerType.DEVELOPER) 
+            // {
                 _mover.playerDetected = true; // Set the flag to true when player is detected
                 
                 // Handle vertical movement here if needed
-                float verticalInput = Input.GetAxisRaw("Vertical");
+                // float verticalInput = Input.GetAxisRaw("Vertical");
+                _mover.inputDirection = new(0, _mover.inputVector.y);
+                // float verticalInput = _mover.inputDirection.y;
 
-                if(verticalInput > 0) 
+
+                if(_mover.inputDirection.y > 0) 
                 {
                     playerMovingOnLadder = true;
                     rbPlayer.velocity = new(0, speed); // Up
                 } 
-                else if(verticalInput < 0) 
+                else if(_mover.inputDirection.y < 0) 
                 {
                     playerMovingOnLadder = true;
                     rbPlayer.velocity = new(0, -speed); // Down
@@ -46,7 +49,7 @@ public class Ladder : MonoBehaviour
                     playerMovingOnLadder = false;
                     rbPlayer.velocity = new(0, rbPlayer.velocity.y); // No input
                 }
-            }
+            // }
 
         }
     }
@@ -55,11 +58,10 @@ public class Ladder : MonoBehaviour
     {
         if (collider.CompareTag("Player")) 
         {
-            if(_playerManag.playerType != PlayerManager.PlayerType.DEVELOPER)
-            {
-                Debug.Log(_playerManag.playerType);
+            // if(_playerManag.playerType != PlayerManager.PlayerType.DEVELOPER)
+            // {
                 _mover.playerDetected = false; // Reset the flag when player exits the trigger area
-            } 
+            // } 
         } 
     }
 

@@ -10,27 +10,32 @@ public class InputController : Controller
         return playerIndex;
     }
 
+
+
     public bool Scale() 
         {
             // CHECK IF INSTANTIATED OBJECT IS NOT NULL
-            if(_instantiateObj != null) 
-            {
+            // if(_instantiateObj != null) 
+            // {
                 // CHECK IF COROUTINE IS ALREADY RUNNING
-                if (coroutine != null)
+                if (coroutine != null) 
+                {
                     StopCoroutine(coroutine); // STOP
+
+                    coroutine = StartCoroutine(CalculateScaling(extendPoint1.gameObject));
+                }
 
 
                 // CHECK IF SCALING IS STOPPED
-                if(!stopScalingCuzEndPointReached) 
-                {
-                    isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
-                    coroutine = StartCoroutine(CalculateScaling(extendPoint1.gameObject, Vector2.right));
-                } 
+                // if(!stopScalingCuzEndPointReached) 
+                // {
+                    // isExpandingBack = false; // Need to set this otherwise it bugs when pressing the button down to fast
+                // } 
 
                 return true;
-            }
+            // }
 
-            return false;
+            // return false;
         }
 
         public void Teleport() 

@@ -40,14 +40,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9088580411512526480}
-  - component: {fileID: 8387774127255218703}
   - component: {fileID: 3019780766482537120}
   - component: {fileID: 4897472642193905928}
+  - component: {fileID: 8387774127255218703}
   - component: {fileID: 5509322266535621288}
   - component: {fileID: 6162275300940899453}
   m_Layer: 0
   m_Name: Artist
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,22 +69,6 @@ Transform:
   - {fileID: 6212145514359403530}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8387774127255218703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7062006135355215493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47702eee1d689a408f8ca3c343dad62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  artist: 0
-  designer: 0
-  developer: 0
-  playerType: 0
 --- !u!50 &3019780766482537120
 Rigidbody2D:
   serializedVersion: 4
@@ -146,9 +130,25 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.03, y: -0.27}
-  m_Size: {x: 0.5, y: 0.09}
+  m_Offset: {x: 0.04, y: -0.19}
+  m_Size: {x: 0.51, y: 0.26}
   m_Direction: 1
+--- !u!114 &8387774127255218703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7062006135355215493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47702eee1d689a408f8ca3c343dad62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artist: 0
+  designer: 0
+  developer: 0
+  playerType: 0
 --- !u!114 &5509322266535621288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,18 +162,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  inputDirection: {x: 0, y: 0}
+  inputVector: {x: 0, y: 0}
   isMoving: 0
-  playerIndex: 0
+  playerIndex: 2
   playerIsGrounded: 0
   castPosition: {fileID: 6191614366833247879}
-  radius: 2
+  radius: 1.5
   layermask:
     serializedVersion: 2
     m_Bits: 64
   playerRenderer: {fileID: 4775754598379115361}
   playerDetected: 0
   ableToJump: 0
-  jumpForce: 5
+  jumpForce: 3.5
 --- !u!114 &6162275300940899453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,9 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a555bbd104a44a8c7941b88d24a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptObj: {fileID: 11400000, guid: 5a0302772cd581040ac2af21fbeced05, type: 2}
+  scriptableObj: {fileID: 0}
   _playerManag: {fileID: 8387774127255218703}
-  _instantiateObj: {fileID: 0}
+  instantiateObj: {fileID: 0}
   _detectPoint: {fileID: 0}
   instantiatePoint: {fileID: 5873480692268388891}
   startPoint: {fileID: 0}
@@ -198,9 +200,13 @@ MonoBehaviour:
   stopScalingCuzEndPointReached: 0
   teleportedToEndPoint: 0
   isDestroyed: 0
-  scaleFactor: 10
-  teleportOffset: {x: 0, y: 0, z: 0}
+  scaleFactor: 3
+  teleportOffset: {x: 0.25, y: 0, z: 0}
   timeToSpawnObject: 1
+  initialScaleX: 0
+  targetScaleX: 0
+  extendDistance: 5
+  extendSpeed: 5
   playerIndex: 0
 --- !u!1001 &9098661235423020976
 PrefabInstance:
@@ -264,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.52
+      value: -1.17
       objectReference: {fileID: 0}
     - target: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_Name

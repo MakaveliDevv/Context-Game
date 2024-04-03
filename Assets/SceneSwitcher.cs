@@ -17,9 +17,7 @@ public class SceneSwitcher : MonoBehaviour
     {
         if (other.GetComponent<PlayerManager>())
         {
-            Debug.Log("Player detected");
             playersInZone++;
-            Debug.Log(playersInZone);
             CheckPlayersCount();
         }
     }

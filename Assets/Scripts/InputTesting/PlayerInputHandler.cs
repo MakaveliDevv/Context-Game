@@ -13,7 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
           playerInput = GetComponent<PlayerInput>();
 
           // FIND OBJECTS WITH MOVER SCRIPT
-          var movers = Object.FindObjectsOfType<Mover>();
+          var movers = FindObjectsOfType<Mover>();
 
           // INITIALIZE PLAYER INDEX FROM PLAYER INPUT
           var index = playerInput.playerIndex;
@@ -44,6 +44,7 @@ public class PlayerInputHandler : MonoBehaviour
      {
           if(ctx.performed) 
           {
+               Debug.Log(ctx + "is performerd");
                mover.UseAbility();
           }
      }

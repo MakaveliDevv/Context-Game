@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 public class Mover : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 3f;
-    private Vector2 inputDirection = Vector2.zero;   
-    private Vector2 inputVector = Vector2.zero;
+    public Vector2 inputDirection = Vector2.zero;   
+    public Vector2 inputVector = Vector2.zero;
     private Rigidbody2D rb;
     public bool isMoving = false;
 
@@ -82,21 +82,27 @@ public class Mover : MonoBehaviour
 
     public void Jump() 
     {
-        ableToJump = false;
-
         if(playerIsGrounded) 
         {   
             ableToJump = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         
-        } else { ableToJump = false; }
+        }
     }
 
     // Extend Ability
     public void UseAbility() 
     {
+        // Invoke the scale input
         inputContr.Scale();
-        playerRenderer.SetActive(false);
+
+        // Turn on the trigger so other players dont collide
+        // CapsuleCollider2D capsuleCol = GetComponent<CapsuleCollider2D>();
+        // capsuleCol.isTrigger = true;
+
+        // Freeze the players position
+        // rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // playerRenderer.SetActive(false);
     }
 
 

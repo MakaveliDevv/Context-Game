@@ -5,15 +5,15 @@ public class Controller : MonoBehaviour
 {
     // PLAYER STUFF
     [Header("Player Stuff")]
-    [SerializeField] protected ScriptObject _scriptObj; // SCRIPTABLE OBJECT
-    protected Mover _player; // PLAYER CONTROLLER
+    [SerializeField] protected ExtendableObj scriptableObj; // SCRIPTABLE OBJECT
+    protected Mover player; // PLAYER CONTROLLER
     protected Coroutine coroutine; // COROUTINE
     public PlayerManager _playerManag; // PLAYER MANAGER
 
 
     // POINTS
     [Header("Points")]
-    public GameObject _instantiateObj; // INSTANTIATE OBJECT 
+    public GameObject instantiateObj; // INSTANTIATE OBJECT 
     protected GameObject startPointObj, detectObj; // START AND END POINT GAME OBJECT
     [SerializeField] protected DetectionPoint _detectPoint; // DETECTPOINT SCRIPT
 
@@ -35,12 +35,18 @@ public class Controller : MonoBehaviour
     [SerializeField] private float scaleFactor = 10f;
     [SerializeField] private Vector3 teleportOffset;
     [SerializeField] private float timeToSpawnObject = 1f;
+    public float initialScaleX;
+    public float targetScaleX;
+    public float extendDistance = 5f;
+    public float extendSpeed = 5f;
 
 
     void Start() 
     {
-        _player = GetComponentInParent<Mover>();
-        StartCoroutine(CreateObject());
+        player = GetComponentInParent<Mover>();
+        // StartCoroutine(CreateObject());
+        initialScaleX = transform.localScale.x;
+
     }
 
     void Update() 
@@ -55,28 +61,28 @@ public class Controller : MonoBehaviour
 
     protected IEnumerator CreateObject() 
     {
-        isDestroyed = false;
-        objectCreated = false;
+        // isDestroyed = false; 
+        // objectCreated = false;
 
         yield return new WaitForSeconds(timeToSpawnObject);
 
         // CHECK IF OBJECT IS NULL
-        if (_instantiateObj == null)
+        if (instantiateObj == null)
         {   
             // INSTANTIATE
-            _instantiateObj = Instantiate(_scriptObj.@object, instantiatePoint.transform.position, _scriptObj.@object.transform.rotation);
+            instantiateObj = Instantiate(scriptableObj.extendableObj, instantiatePoint.transform.position, scriptableObj.extendableObj.transform.rotation);
             
             // SET THE @OBJECT AS CHILD OF PLAYER
-            _instantiateObj.transform.SetParent(_player.transform);
-            _instantiateObj.name = _scriptObj.name;
+            instantiateObj.transform.SetParent(player.transform);
+            instantiateObj.name = scriptableObj.name;
 
             // FETCH ALL 'ObjectPoint'
-            ObjectPoint[] objPoints = _instantiateObj.GetComponentsInChildren<ObjectPoint>();
+            ObjectPoint[] objPoints = instantiateObj.GetComponentsInChildren<ObjectPoint>();
 
-            // ITERATE THROUGH THE OBJECT POINTS LENGTH
+            // Iterate through the amounts of object points
             for (int i = 0; i < objPoints.Length; i++)
             {
-                // INTIALIZE ALL OBJECT POINTS TO THE EMPTY VARIABLES
+                // Initialize the objects
                 extendPoint1 = GameObject.FindGameObjectWithTag(objPoints[0].NameTag).transform;
                 extendPoint2 = GameObject.FindGameObjectWithTag(objPoints[1].NameTag).transform;
                 toExtandBack = GameObject.FindGameObjectWithTag(objPoints[2].NameTag).transform; 
@@ -86,18 +92,18 @@ public class Controller : MonoBehaviour
                 Debug.Log(objPoints[i].NameTag);
             }
 
-            // SET FIRST EXTEND POINT SCALE FACTOR TO THE @OBJECT SCALE FACTOR
-            extendPoint1.localScale = _scriptObj.initialScale;
+            // SET FIRST EXTEND POINT SCALE FACTOR TO THE extendable object SCALE FACTOR
+            extendPoint1.localScale = scriptableObj.initialScale;
             
             // INSTANTIATE START POINT, SET AS CHILD OF PLAYER
-            startPointObj = Instantiate(_scriptObj.startObj, extendPoint1.position, Quaternion.identity);
+            startPointObj = Instantiate(scriptableObj.startObj, extendPoint1.position, Quaternion.identity);
             startPointObj.name = "NewStartPointPrefab";
-            startPointObj.transform.SetParent(_player.transform);
+            startPointObj.transform.SetParent(player.transform);
 
             // INSTANTIATE END POINT (detectpoint), SET AS CHILD OF PLAYER
-            detectObj = Instantiate(_scriptObj.detectObj, extendPoint2.position, Quaternion.identity) as GameObject;
+            detectObj = Instantiate(scriptableObj.detectObj, extendPoint2.position, Quaternion.identity) as GameObject;
             detectObj.name = "Detect Point";
-            detectObj.transform.SetParent(_player.transform);
+            detectObj.transform.SetParent(player.transform);
 
             // FLAG OBJECT CREATED            
             objectCreated = true;
@@ -105,33 +111,50 @@ public class Controller : MonoBehaviour
 
     }
 
-    protected IEnumerator CalculateScaling(GameObject _scaleObj, Vector3 _targetDirection)
+    public void ExtendObject() 
     {
+        if(Input.GetKeyDown(KeyCode.L)) 
+        {
+            StartCoroutine(CreateObject()); 
+        }
+    }
+
+    protected IEnumerator CalculateScaling(GameObject _scaleObj)
+    {
+        Debug.Log("Calculate scaling method");
+
+        yield return StartCoroutine(CreateObject()); 
+
         while (true) // Continuously scale
         {
-            // FETCH INITIAL SCALE
-            Vector3 initialScale = new(_scaleObj.transform.localScale.x, _scaleObj.transform.localScale.y, _scaleObj.transform.localScale.z);
-
-            // FETCH TARGET SCALE
-            Vector3 targetScale = initialScale + scaleFactor * Time.deltaTime * _targetDirection;
-
-            // SET THE SCALE OF THE OBJECT TO THE TARGET SCALE
-            _scaleObj.transform.localScale = targetScale;
+            // Fetch the target scale
+            targetScaleX = initialScaleX + extendDistance;
             
-            // FLAG IS EXPANDING TO TRUE
+            // Calculate the scaling process
+            float newScaleX = Mathf.Lerp(_scaleObj.transform.localScale.x, targetScaleX, extendSpeed * Time.deltaTime);
+
+            // Extend the object
+            _scaleObj.transform.localScale = new Vector3(newScaleX, _scaleObj.transform.localScale.y, _scaleObj.transform.localScale.z);
+            
+            // Flag it to true
             isExpanding = true;
+
+            CapsuleCollider2D capsuleCol = GetComponent<CapsuleCollider2D>();
+            capsuleCol.isTrigger = false;
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             
-            // GET SCRIPT COMPONENT FROM THE END POINT (detectpoint)
+            // Get the script compontent
             _detectPoint = detectObj.GetComponent<DetectionPoint>();
 
-            // CHECK FOR CONNECT POINT WHILE SCALING
+            // Check for a collision while expanding
             if (_detectPoint.PointDetected())
             {                
-                // STOP SCALING ONCE DETECT POINT REACHED
+                // Stop scaling once reaching a checkpoint
                 FreezeScaling(_scaleObj, _scaleObj.transform.localScale);
             } 
-
-            yield return null;
         }
     }
 
@@ -154,6 +177,7 @@ public class Controller : MonoBehaviour
                 yield return null;
             }
 
+            // Ensure the scale is exactly the target scale when done
             _scaleObj.transform.localScale = _targetScale;
             isExpandingBack = false;
         }           
@@ -163,7 +187,7 @@ public class Controller : MonoBehaviour
     // SCALE BACK TOWARDS THE ENDPOINT
     protected IEnumerator ExpandBackTowardsEndPoint(GameObject _scaleObj, Vector3 _startPosition)
     {
-        teleportedToEndPoint = false;
+        // teleportedToEndPoint = false;
         stopScalingCuzEndPointReached = true;
         
         float elapsedTime = 0f;
@@ -179,11 +203,11 @@ public class Controller : MonoBehaviour
                 float t = elapsedTime / duration;
                 _scaleObj.transform.localScale = Vector3.Lerp(_startPosition, targetScale, t);
                 
-                if(_point.Moving(startPointObj.transform)) 
-                {
-                    // Debug.Log("We are moving");
-                    _player.playerRenderer.SetActive(false);
-                }
+                // if(_point.Moving(startPointObj.transform)) 
+                // {
+                //     // Debug.Log("We are moving");
+                //     _player.playerRenderer.SetActive(false);
+                // }
                 
                 // Increment elapsed time
                 elapsedTime += Time.deltaTime;
@@ -198,37 +222,34 @@ public class Controller : MonoBehaviour
         if(_scaleObj.transform.localScale == targetScale) 
         {
             Debug.Log("Reached the endpoint");
-            _player.transform.position = detectObj.transform.position + teleportOffset;
+            player.transform.position = detectObj.transform.position + teleportOffset;
 
             teleportedToEndPoint = true;
-            _player.playerRenderer.SetActive(true);
-        }
-
-        if(teleportedToEndPoint) 
-        {
-            Debug.Log("Teleported to the end point");
-        }
-
-
-
-        if(DestroyGameObject(_instantiateObj)) 
-        {
-            DestroyGameObject(detectObj);
-            DestroyGameObject(startPointObj);
+            player.playerRenderer.SetActive(true);
             
-            isDestroyed = true;
-            objectCreated = false;
-            _point.isMoving = false;
-            
-            // SET PLAYER MOVEMENT BACK TO THE INPUT DIRECTION AFTER DESTROYED
 
-            // _player.rb.velocity = _player.inputDirection;
+            CapsuleCollider2D capsuleCol = GetComponent<CapsuleCollider2D>();
+            capsuleCol.isTrigger = false;
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            if(DestroyGameObject(instantiateObj)) 
+            {
+                DestroyGameObject(detectObj);
+                DestroyGameObject(startPointObj);
+                
+                isDestroyed = true;
+                objectCreated = false;
+                _point.isMoving = false;
+            }
         }
         
         stopScalingCuzEndPointReached = false;
         teleportedToEndPoint = false;
 
-        yield return CreateObject(); // Start the creation process again
+        yield return null;
     }
 
     public bool DestroyGameObject(GameObject _object) 
