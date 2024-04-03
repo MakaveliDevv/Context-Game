@@ -25,6 +25,11 @@ public class PlayerInputHandler : MonoBehaviour
 
      }
 
+     void Update()
+     {
+          AbilityInputExtendBack();
+     }
+
 
      public void OnMove(InputAction.CallbackContext ctx) 
      {
@@ -46,6 +51,14 @@ public class PlayerInputHandler : MonoBehaviour
           {
                Debug.Log(ctx + "is performerd");
                mover.UseAbility();
+          }
+     }
+
+     public void AbilityInputExtendBack() 
+     {
+          if(Input.GetKeyDown(KeyCode.B)) 
+          {
+               mover.UseExtendBack();
           }
      }
 

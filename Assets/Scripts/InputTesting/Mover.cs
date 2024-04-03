@@ -62,17 +62,17 @@ public class Mover : MonoBehaviour
 
     void MovePlayer() 
     {
-        if(!controller.isExpanding && !controller.isExpandingBack 
-        && !controller.stopScalingCuzEndPointReached && playerIsGrounded) 
-        {
-            if(!playerDetected)
+        // if(!controller.isExpanding && !controller.isExpandingBack 
+        // && !controller.stopScalingCuzEndPointReached && playerIsGrounded) 
+        // {
+            if(!playerDetected) // Detected by the ladder
                 inputDirection.y = 0f; 
 
 
             inputDirection = new(inputVector.x, 0);
             inputDirection = transform.TransformDirection(inputDirection);
             inputDirection *= moveSpeed;
-        }
+        // }
 
         // Apply movement
         rb.velocity = new Vector2(inputDirection.x, rb.velocity.y);
@@ -109,6 +109,11 @@ public class Mover : MonoBehaviour
         // Freeze the players position
         // rb.constraints = RigidbodyConstraints2D.FreezeAll;
         // playerRenderer.SetActive(false);
+    }
+
+    public void UseExtendBack() 
+    {
+        controller.ExtendBack();
     }
 
 

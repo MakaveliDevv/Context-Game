@@ -13,7 +13,12 @@ public class InputController : Controller
                 // StopCoroutine(coroutine); // STOP
 
                 // coroutine = StartCoroutine(ExtendObject(extendPoint1.gameObject));
-                StartCoroutine(ExtendObject(extendPoint1.gameObject));
+                if(coroutine != null) 
+                    StopCoroutine(coroutine);
+
+
+                CreateObject(extandableObj);
+                coroutine = StartCoroutine(ExtendObject(extendPoint));
             // }
 
 
@@ -29,10 +34,19 @@ public class InputController : Controller
         // return false;
     }
 
-    public void Teleport() 
+    public void ExtendBack() 
     {
-        stopScalingCuzEndPointReached = false;
-        StartCoroutine(ExpandBackTowardsEndPoint(extendPoint2.gameObject, transform.localScale));
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+
+
+        StartCoroutine(RetractObject(extandableObj, extendPoint));
     }
+
+    // public void Teleport() 
+    // {
+    //     // stopScalingCuzEndPointReached = false;
+    //     StartCoroutine(CollapseTowardsEndPoint(extendPoint2.gameObject, transform.localScale));
+    // }
 
 }

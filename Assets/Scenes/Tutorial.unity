@@ -1119,8 +1119,6 @@ MonoBehaviour:
   instantiatePoint: {fileID: 0}
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
-  isExpanding: 0
-  isExpandingBack: 0
   stopScalingCuzEndPointReached: 0
   teleportedToEndPoint: 0
   isDestroyed: 0
@@ -1131,6 +1129,8 @@ MonoBehaviour:
   extendDistance: 5
   extendSpeed: 5
   extendDuration: 4
+  extendTime: 0
+  extendBackTime: 0
 --- !u!1 &906225203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,8 +1759,6 @@ MonoBehaviour:
   instantiatePoint: {fileID: 734303412}
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
-  isExpanding: 0
-  isExpandingBack: 0
   stopScalingCuzEndPointReached: 0
   teleportedToEndPoint: 0
   isDestroyed: 0
@@ -1769,8 +1767,10 @@ MonoBehaviour:
   timeToSpawnObject: 1
   initialScaleX: 0
   extendDistance: 10
-  extendSpeed: 5
+  extendSpeed: 2
   extendDuration: 0
+  extendTime: 0
+  extendBackTime: 0
 --- !u!1 &1122543798
 GameObject:
   m_ObjectHideFlags: 0

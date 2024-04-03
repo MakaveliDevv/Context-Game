@@ -15,4 +15,4 @@ MonoBehaviour:
   extendableObj: {fileID: 856841965997008045, guid: 4fa6a2f7a5a34dc4eb3b68063d63fd1d, type: 3}
   detectObj: {fileID: 2194041748212303040, guid: 2995f5c9eba479244a24a698210017a2, type: 3}
   startObj: {fileID: 2884031325983474466, guid: b9a6a06024675584395b897309328113, type: 3}
-  initialScale: {x: 1, y: 1, z: 1}
+  initialScale: {x: 0.5, y: 1, z: 1}
