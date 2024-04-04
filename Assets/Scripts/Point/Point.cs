@@ -4,43 +4,18 @@ using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    public enum PointName 
+    public enum Type 
     {
-        BRIDGE_POINT, 
-        LADDER_POINT, 
-        GRAPPLER_POINT,
         PIVOT_POINT,
+        CONNECT_POINT,
+        DETECT_POINT
     }
 
-    public PointName pointName;
+    public Type type;
+    public string NameTag;
 
-    Vector3 previousPosition;
-    Vector3 currentPosition;
-    public bool isMoving;
-
-    
-    public bool Moving(Transform _point) 
+    private void Update() 
     {
-        // Check if this is the first time moving
-        if (previousPosition == Vector3.zero)
-        {
-            previousPosition = _point.transform.position;
-            return false; // No movement yet
-        }
-        
-        Vector3 currentPosition = _point.transform.position;
-        
-        // Compare current position with the previous position
-        if (currentPosition != previousPosition) 
-        {
-            previousPosition = currentPosition;
-            isMoving = true;
-            return true; // Object is moving
-        } 
-        else 
-        {
-            isMoving = false;
-            return false; // Object is not moving
-        }
+        gameObject.tag = NameTag;
     }
 }

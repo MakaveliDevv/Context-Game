@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExtendableObj_", menuName = "Scriptables/ExtendableObj")]
 public class ExtendableObj : ScriptableObject
 {
-    public GameObject extendableObj, detectObj, startObj;
+    public GameObject extendableObject;
+    public GameObject detectPoint;
     public Vector3 initialScale = new(0, 0, 0);
 }

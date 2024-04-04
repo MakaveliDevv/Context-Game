@@ -15,9 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Ability",
+                    "name": "ActivateAbility",
                     "type": "Button",
                     "id": "be582c4f-60b8-4c1b-b85a-64a0035ad44b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ActivateAbilityPress",
+                    "type": "Button",
+                    "id": "3224be03-8fc4-4378-842c-17220fbc298d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -36,6 +45,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "5494523c-4edd-4c54-af26-bddb4bb2782b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Retract",
+                    "type": "Button",
+                    "id": "3b7be146-fbee-4ce2-9c63-52dcedfee3da",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -116,7 +134,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Ability",
+                    "action": "ActivateAbility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -124,10 +142,10 @@
                     "name": "",
                     "id": "8739069c-6d43-4210-a857-a363e3b2542a",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Ability",
+                    "action": "ActivateAbility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -172,6 +190,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d32b9a66-60d7-4dc8-acb4-ed9eaf72e236",
+                    "path": "<Keyboard>/b",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Retract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6fdf989-3a8d-4112-9a13-1e67ecca5025",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateAbilityPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52abb6c7-ea09-4507-b986-bee498915e47",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateAbilityPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -37,9 +37,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Ability"",
+                    ""name"": ""ActivateAbility"",
                     ""type"": ""Button"",
                     ""id"": ""be582c4f-60b8-4c1b-b85a-64a0035ad44b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateAbilityPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""3224be03-8fc4-4378-842c-17220fbc298d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -58,6 +67,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""5494523c-4edd-4c54-af26-bddb4bb2782b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Retract"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b7be146-fbee-4ce2-9c63-52dcedfee3da"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -138,7 +156,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability"",
+                    ""action"": ""ActivateAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -146,10 +164,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""8739069c-6d43-4210-a857-a363e3b2542a"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Ability"",
+                    ""action"": ""ActivateAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -196,6 +214,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d32b9a66-60d7-4dc8-acb4-ed9eaf72e236"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6fdf989-3a8d-4112-9a13-1e67ecca5025"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52abb6c7-ea09-4507-b986-bee498915e47"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateAbilityPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -205,9 +256,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Ability = m_Gameplay.FindAction("Ability", throwIfNotFound: true);
+        m_Gameplay_ActivateAbility = m_Gameplay.FindAction("ActivateAbility", throwIfNotFound: true);
+        m_Gameplay_ActivateAbilityPress = m_Gameplay.FindAction("ActivateAbilityPress", throwIfNotFound: true);
         m_Gameplay_Teleport = m_Gameplay.FindAction("Teleport", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_Retract = m_Gameplay.FindAction("Retract", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,17 +323,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_Ability;
+    private readonly InputAction m_Gameplay_ActivateAbility;
+    private readonly InputAction m_Gameplay_ActivateAbilityPress;
     private readonly InputAction m_Gameplay_Teleport;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_Retract;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
         public GameplayActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-        public InputAction @Ability => m_Wrapper.m_Gameplay_Ability;
+        public InputAction @ActivateAbility => m_Wrapper.m_Gameplay_ActivateAbility;
+        public InputAction @ActivateAbilityPress => m_Wrapper.m_Gameplay_ActivateAbilityPress;
         public InputAction @Teleport => m_Wrapper.m_Gameplay_Teleport;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @Retract => m_Wrapper.m_Gameplay_Retract;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -293,15 +350,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Ability.started += instance.OnAbility;
-            @Ability.performed += instance.OnAbility;
-            @Ability.canceled += instance.OnAbility;
+            @ActivateAbility.started += instance.OnActivateAbility;
+            @ActivateAbility.performed += instance.OnActivateAbility;
+            @ActivateAbility.canceled += instance.OnActivateAbility;
+            @ActivateAbilityPress.started += instance.OnActivateAbilityPress;
+            @ActivateAbilityPress.performed += instance.OnActivateAbilityPress;
+            @ActivateAbilityPress.canceled += instance.OnActivateAbilityPress;
             @Teleport.started += instance.OnTeleport;
             @Teleport.performed += instance.OnTeleport;
             @Teleport.canceled += instance.OnTeleport;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Retract.started += instance.OnRetract;
+            @Retract.performed += instance.OnRetract;
+            @Retract.canceled += instance.OnRetract;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -309,15 +372,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Ability.started -= instance.OnAbility;
-            @Ability.performed -= instance.OnAbility;
-            @Ability.canceled -= instance.OnAbility;
+            @ActivateAbility.started -= instance.OnActivateAbility;
+            @ActivateAbility.performed -= instance.OnActivateAbility;
+            @ActivateAbility.canceled -= instance.OnActivateAbility;
+            @ActivateAbilityPress.started -= instance.OnActivateAbilityPress;
+            @ActivateAbilityPress.performed -= instance.OnActivateAbilityPress;
+            @ActivateAbilityPress.canceled -= instance.OnActivateAbilityPress;
             @Teleport.started -= instance.OnTeleport;
             @Teleport.performed -= instance.OnTeleport;
             @Teleport.canceled -= instance.OnTeleport;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Retract.started -= instance.OnRetract;
+            @Retract.performed -= instance.OnRetract;
+            @Retract.canceled -= instance.OnRetract;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -338,8 +407,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnAbility(InputAction.CallbackContext context);
+        void OnActivateAbility(InputAction.CallbackContext context);
+        void OnActivateAbilityPress(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnRetract(InputAction.CallbackContext context);
     }
 }

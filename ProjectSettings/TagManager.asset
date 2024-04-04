@@ -4,27 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - CollapsePoint_Artist
+  - ExtendPoint_Artist
+  - ArtistObject
   - DetectPoint
-  - Extend_Point_1_Artist
-  - Extend_Point_2_Artist
-  - To_Extand_Back_Artist
-  - Start_Point_Artist
-  - End_Point_Artist
-  - Extend_Point_1_Developer
-  - Extend_Point_2_Developer
-  - To_Extand_Back_Developer
-  - Start_Point_Developer
-  - End_Point_Developer
-  - ExtendPoint1
-  - ExtendPoint2
-  - ToExtandBack
+  - ConnectPoint
   - DesignersObject
-  - StartPoint
   - Extend_Point_1_Designer
   - Extend_Point_2_Designer
   - To_Extand_Back_Designer
   - Start_Point_Designer
   - End_Point_Designer
+  - To_Extand_Back_Developer
+  - Extend_Point_1_Developer
+  - End_Point_Developer
+  - Extend_Point_2_Developer
+  - Start_Point_Developer
   layers:
   - Default
   - TransparentFX
@@ -33,8 +28,8 @@ TagManager:
   - Water
   - UI
   - Platform
-  - 
-  - 
+  - Bridge
+  - GrapplingLine
   - GrapplingPlatform
   - EndPoint
   - 

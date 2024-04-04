@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4897472642193905928}
   - component: {fileID: 8387774127255218703}
   - component: {fileID: 5509322266535621288}
-  - component: {fileID: 6162275300940899453}
+  - component: {fileID: 5767408225184946223}
   m_Layer: 0
   m_Name: Artist
   m_TagString: Player
@@ -161,22 +161,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f2fb2cff5ddb4449a7ca5cc9060a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
   inputDirection: {x: 0, y: 0}
   inputVector: {x: 0, y: 0}
-  isMoving: 0
-  playerIndex: 2
-  playerIsGrounded: 0
-  castPosition: {fileID: 6191614366833247879}
-  radius: 1.5
+  moveSpeed: 3
+  jumpForce: 4.5
+  groundRadius: 0.5
+  isGrounded: 0
+  playerDetected: 0
+  inputContr: {fileID: 0}
   layermask:
     serializedVersion: 2
     m_Bits: 64
-  playerRenderer: {fileID: 4775754598379115361}
-  playerDetected: 0
-  ableToJump: 0
-  jumpForce: 3.5
---- !u!114 &6162275300940899453
+  castPosition: {fileID: 6191614366833247879}
+  playerIndex: 0
+--- !u!114 &5767408225184946223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,26 +186,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a555bbd104a44a8c7941b88d24a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObj: {fileID: 0}
-  _playerManag: {fileID: 8387774127255218703}
-  instantiateObj: {fileID: 0}
-  _detectPoint: {fileID: 0}
+  scriptableObj: {fileID: 11400000, guid: d2c9ec6a69bd202468800469157645e8, type: 2}
   instantiatePoint: {fileID: 5873480692268388891}
-  startPoint: {fileID: 0}
-  endPoint: {fileID: 0}
-  isExpanding: 0
-  isExpandingBack: 0
-  stopScalingCuzEndPointReached: 0
-  teleportedToEndPoint: 0
-  isDestroyed: 0
-  scaleFactor: 3
-  teleportOffset: {x: 0.25, y: 0, z: 0}
-  timeToSpawnObject: 1
-  initialScaleX: 0
-  targetScaleX: 0
-  extendDistance: 5
-  extendSpeed: 5
-  playerIndex: 0
+  detectPointOffset: {x: 0.5, y: 0, z: 0}
+  isExtending: 0
+  isRetracting: 0
+  isCollapsing: 0
+  ableToMove: 0
+  teleportOffset: {x: 0, y: 0, z: 0}
+  extendDistance: 20
+  extendSpeed: 2
+  collapseSpeed: 0.5
 --- !u!1001 &9098661235423020976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,15 +255,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.499
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.17
+      value: -1.25
       objectReference: {fileID: 0}
     - target: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_Name
       value: PlayerRendererArtistt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917265860324680300, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7917265860324680300, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_Sprite
@@ -289,11 +282,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
---- !u!1 &4775754598379115361 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-  m_PrefabInstance: {fileID: 9098661235423020976}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5873480692268388891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
