@@ -46,7 +46,8 @@ public class Controller : MonoBehaviour
         {
             // Instantiate
             newGameObject = Instantiate(_obj.extendableObject, instantiatePoint.transform.position, _obj.extendableObject.transform.rotation) as GameObject;
-            
+            objectCreated = true;
+
             // Set the object as the child of the player
             newGameObject.transform.SetParent(transform);
             newGameObject.name = "NEW_GAME_OBJECT!!!";
@@ -71,7 +72,6 @@ public class Controller : MonoBehaviour
             detectPoint = newDetectPoint.transform;
             newDetectPoint.transform.SetParent(newGameObject.transform);
 
-            objectCreated = true;
             isDestroyed = false;
 
             // Trigger the collider
@@ -88,26 +88,8 @@ public class Controller : MonoBehaviour
             ableToMove = false;
         }
     }
-
-    protected void TransformBack() 
-    {
-        TryGetComponent<CapsuleCollider2D>(out var collider);
-        collider.isTrigger = false;
-
-        // Enable the sprite renderer
-        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
-        sprite.enabled = true;
-
-        // Unfreeze players movement
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.None;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        ableToMove = true;
-
-        DestroyObject(newGameObject);
-    }
       
-    protected IEnumerator ExtendObject(ExtendableObj _obj, Transform _extendPoint)
+    protected IEnumerator ExtendObject(Transform _extendPoint)
     {
         if (isExtending || _extendPoint == null)
             yield break; // Exit the coroutine if already extending or object doesnt exist
@@ -129,7 +111,7 @@ public class Controller : MonoBehaviour
             newScaleX = Mathf.Min(newScaleX, targetScaleX);
 
             // Extend the object
-            _extendPoint.localScale = new Vector3(newScaleX, _obj.extendableObject.transform.localScale.y, _obj.extendableObject.transform.localScale.z);
+            _extendPoint.localScale = new Vector3(newScaleX, newGameObject.transform.localScale.y, newGameObject.transform.localScale.z);
 
             yield return null;
         }
@@ -142,7 +124,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    protected IEnumerator RetractObject(ExtendableObj _obj, Transform _extendPoint)
+    protected IEnumerator RetractObject(Transform _extendPoint)
     {
         if (isRetracting)
             yield break; // Exit the coroutine if already retracting
@@ -170,7 +152,7 @@ public class Controller : MonoBehaviour
                 newScaleX = Mathf.Max(newScaleX, targetScaleX);
 
                 // Retract the object
-                _extendPoint.localScale = new Vector3(newScaleX, _obj.extendableObject.transform.localScale.y, _obj.extendableObject.transform.localScale.z);
+                _extendPoint.localScale = new Vector3(newScaleX, newGameObject.transform.localScale.y, newGameObject.transform.localScale.z);
 
                 yield return null;
             }
@@ -197,7 +179,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    protected IEnumerator CollapseObject(ExtendableObj _obj, Transform _collapsePoint) 
+    protected IEnumerator CollapseObject(Transform _collapsePoint) 
     {
         if (isCollapsing)
             yield break; // Exit the coroutine if already retracting
@@ -219,7 +201,7 @@ public class Controller : MonoBehaviour
                 newScaleX = Mathf.Max(newScaleX, targetScaleX);
 
                 // Retract the object
-                _collapsePoint.localScale = new Vector3(newScaleX, _obj.extendableObject.transform.localScale.y, _obj.extendableObject.transform.localScale.z);
+                _collapsePoint.localScale = new Vector3(newScaleX, newGameObject.transform.localScale.y, newGameObject.transform.localScale.z);
 
                 yield return null;
             }
@@ -253,6 +235,59 @@ public class Controller : MonoBehaviour
         }
 
     }
+
+    // Is for the designer
+    protected void TransformBack() 
+    {
+        // Transform back only when not retracting
+        TryGetComponent<CapsuleCollider2D>(out var collider);
+        collider.isTrigger = false;
+
+        // Enable the sprite renderer
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.enabled = true;
+
+        // Unfreeze players movement
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        ableToMove = true;
+
+        DestroyObject(newGameObject);
+    }
+
+    // protected void RotateObject(ExtendableObj _obj, bool _true, bool _false) 
+    // {
+    //     // Get the local rotation from the object
+    //     Quaternion localRotation = _obj.extendableObject.transform.localRotation;
+
+    //     // Define the rotation angle
+    //     float rotationAngle = 0f;
+
+    //     // Determine the rotation direction based on _true and _false parameters
+    //     if (_true)
+    //     {
+    //         // Rotate positively
+    //         rotationAngle = 10f; // Example rotation angle, you can adjust as needed
+    //     }
+    //     else if (_false)
+    //     {
+    //         // Rotate negatively
+    //         rotationAngle = -10f; // Example rotation angle, you can adjust as needed
+    //     }
+    //     else
+    //     {
+    //         // No rotation direction specified
+    //         Debug.LogError("Neither positive nor negative rotation direction specified!");
+    //         return;
+    //     }
+
+    //     // Apply the rotation to the object
+    //     Quaternion newRotation = Quaternion.Euler(0f, 0f, Mathf.Clamp(localRotation.eulerAngles.z + rotationAngle, -70f, 70f));
+        
+    //     // Set the new local rotation to the object
+    //     _obj.extendableObject.transform.localRotation = newRotation;
+    // }
 
     public void Freeze() 
     {

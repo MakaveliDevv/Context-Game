@@ -96,24 +96,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Designer
     public void TransformInput() 
     {
         inputContr.TransformToObject();
     }
 
+    // Designer
     public void Transform2Input() 
     {
         inputContr.TransformToCharacter();
     }
 
     public void ExtendInput() 
-    {
-        // if(TryGetComponent<PlayerManager>(out var player) && player.playerType != PlayerManager.PlayerType.DESIGNER) 
+    { 
         inputContr.ExtendObj();
-
-        // else if(TryGetComponent<PlayerManager>(out var designer) && designer.playerType == PlayerManager.PlayerType.DESIGNER)
-        //     inputContr.ExtendDesignersObj();
     }
+
+    // Designer
+    // public void ExtendInputDesigner() 
+    // {
+    //     inputContr.ExtendDesignersObj();
+    // }
 
     public void RetractInput() 
     {

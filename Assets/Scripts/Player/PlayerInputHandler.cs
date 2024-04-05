@@ -6,6 +6,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
      private PlayerInput playerInput;
      private PlayerController player;
+     [SerializeField] private PlayerManager playerManag; 
 
      private void Awake() 
      {
@@ -14,6 +15,7 @@ public class PlayerInputHandler : MonoBehaviour
 
           #pragma warning disable CS0618 // Type or member is obsolete
           var players = FindObjectsOfType<PlayerController>();
+          playerManag = FindObjectOfType<PlayerManager>();
           #pragma warning restore CS0618 // Type or member is obsolete
 
           // Initialize player index from the playerinput
@@ -25,27 +27,23 @@ public class PlayerInputHandler : MonoBehaviour
      }
 
      // Movement input
-     public void MovementInput(InputAction.CallbackContext ctx) 
-     {
-          player.SetInputVector(ctx.ReadValue<Vector2>());
-     }
+     public void MovementInput(InputAction.CallbackContext ctx) { player.SetInputVector(ctx.ReadValue<Vector2>()); }
 
      // Jump input
      public void JumpInput(InputAction.CallbackContext ctx) 
      {
           if(ctx.performed) 
-          {
                player.Jump();
-               Debug.Log("We can jump");
-          }
      }
 
+     // Designer
      public void TransformAbility(InputAction.CallbackContext ctx)
      {
           if(ctx.performed) 
                player.TransformInput();
      }
 
+     // Designer
      public void TransformBackAbility(InputAction.CallbackContext ctx) 
      {
           if(ctx.performed)
@@ -56,39 +54,32 @@ public class PlayerInputHandler : MonoBehaviour
      public void ExtendAbility(InputAction.CallbackContext ctx) 
      {
           if(!player.inputContr.isExtending && ctx.performed) 
-          {
-               Debug.Log(ctx + "is performerd");
                player.ExtendInput();
-          }
+          
      }
 
      // Extend ability by pressing
      public void ExtendAbilityPress(InputAction.CallbackContext ctx) 
      {
-          if(player.inputContr.isRetracting && ctx.performed) 
-          {
-               Debug.Log(ctx.performed);
+          if(player.inputContr.objectCreated && playerManag.playerType == PlayerManager.PlayerType.DESIGNER 
+          && ctx.performed) 
                player.ExtendInput();
-          }
+          
+          else if(player.inputContr.isRetracting && ctx.performed)
+               player.ExtendInput();  
      }
 
      // Retract Input
      public void RetractInput(InputAction.CallbackContext ctx) 
      {
           if(!player.inputContr.isRetracting && ctx.performed) 
-          {
-               Debug.Log(ctx.performed);
                player.RetractInput();
-          }
      }
 
      // Teleport ability
      public void TeleportAbility(InputAction.CallbackContext ctx) 
      {
           if(ctx.performed) 
-          {
-               Debug.Log("Teleport Input is working");
-               player.TeleportInput();
-          }
+               player.TeleportInput(); 
      }
 }
