@@ -26,7 +26,6 @@ public class Controller : MonoBehaviour
     [Header("Floats And Such")]
     [SerializeField] private Vector3 teleportOffset;
     private Vector3 initlialScale;
-    private float initialScaleX; // Meant for the X axis
     [SerializeField] private float extendDistance = 5f;
     [SerializeField] private float extendSpeed = 5f;
     [SerializeField] private float collapseSpeed;
@@ -34,7 +33,6 @@ public class Controller : MonoBehaviour
     void Start() 
     {
         initlialScale = scriptableObj.initialScale;
-        initialScaleX = initlialScale.x;
 
         ableToMove = true;
     }
@@ -75,32 +73,6 @@ public class Controller : MonoBehaviour
 
             objectCreated = true;
             isDestroyed = false;
-        }
-    }
-      
-    protected IEnumerator ExtendObject(ExtendableObj _obj, Transform _extendPoint)
-    {
-        if (isExtending || _extendPoint == null)
-            yield break; // Exit the coroutine if already extending or object doesnt exist
-
-        isRetracting = false;
-        reached_endPoint = false;
-        isExtending = true;
-
-        // Calculate the target scale
-        float targetScaleX = initialScaleX + extendDistance;
-
-        // While the current scale is less than the target scale
-        while (_extendPoint != null && _extendPoint.localScale.x < targetScaleX && !isRetracting)
-        {
-            // Calculate the new scale based on the extend time
-            float newScaleX = _extendPoint.localScale.x + extendSpeed * Time.deltaTime;
-
-            // Ensure the new scale doesn't exceed the target scale
-            newScaleX = Mathf.Min(newScaleX, targetScaleX);
-
-            // Extend the object
-            _extendPoint.localScale = new Vector3(newScaleX, _obj.extendableObject.transform.localScale.y, _obj.extendableObject.transform.localScale.z);
 
             // Trigger the collider
             TryGetComponent<CapsuleCollider2D>(out var collider);
@@ -114,6 +86,50 @@ public class Controller : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             ableToMove = false;
+        }
+    }
+
+    protected void TransformBack() 
+    {
+        TryGetComponent<CapsuleCollider2D>(out var collider);
+        collider.isTrigger = false;
+
+        // Enable the sprite renderer
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.enabled = true;
+
+        // Unfreeze players movement
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        ableToMove = true;
+
+        DestroyObject(newGameObject);
+    }
+      
+    protected IEnumerator ExtendObject(ExtendableObj _obj, Transform _extendPoint)
+    {
+        if (isExtending || _extendPoint == null)
+            yield break; // Exit the coroutine if already extending or object doesnt exist
+
+        isRetracting = false;
+        reached_endPoint = false;
+        isExtending = true;
+
+        // Calculate the target scale
+        float targetScaleX = initlialScale.x + extendDistance;
+
+        // While the current scale is less than the target scale
+        while (_extendPoint != null && _extendPoint.localScale.x < targetScaleX && !isRetracting)
+        {
+            // Calculate the new scale based on the extend time
+            float newScaleX = _extendPoint.localScale.x + extendSpeed * Time.deltaTime;
+
+            // Ensure the new scale doesn't exceed the target scale
+            newScaleX = Mathf.Min(newScaleX, targetScaleX);
+
+            // Extend the object
+            _extendPoint.localScale = new Vector3(newScaleX, _obj.extendableObject.transform.localScale.y, _obj.extendableObject.transform.localScale.z);
 
             yield return null;
         }
@@ -139,7 +155,7 @@ public class Controller : MonoBehaviour
             reached_connectPoint = false;
             freeze = false;
 
-            float targetScaleX = initialScaleX;
+            float targetScaleX = initlialScale.x;
 
             // While the current scale is greater than the target scale
             while (_extendPoint.localScale.x > targetScaleX)

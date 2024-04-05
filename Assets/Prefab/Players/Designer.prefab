@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8132890882538178840}
-  - component: {fileID: 1447333189412635343}
   - component: {fileID: 898522220285760236}
   - component: {fileID: 6479888674403976482}
+  - component: {fileID: 1447333189412635343}
   - component: {fileID: 7279457524916414230}
   - component: {fileID: 4653111593675914879}
   m_Layer: 0
@@ -70,22 +70,6 @@ Transform:
   - {fileID: 4192926004372717630}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1447333189412635343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464470200506158119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47702eee1d689a408f8ca3c343dad62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  artist: 0
-  designer: 0
-  developer: 0
-  playerType: 1
 --- !u!50 &898522220285760236
 Rigidbody2D:
   serializedVersion: 4
@@ -150,6 +134,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.23}
   m_Size: {x: 0.48, y: 0.1}
   m_Direction: 1
+--- !u!114 &1447333189412635343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5464470200506158119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47702eee1d689a408f8ca3c343dad62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artist: 0
+  designer: 0
+  developer: 0
+  playerType: 1
 --- !u!114 &7279457524916414230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,21 +162,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f2fb2cff5ddb4449a7ca5cc9060a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
   inputDirection: {x: 0, y: 0}
   inputVector: {x: 0, y: 0}
-  isMoving: 0
-  playerIndex: 0
-  playerIsGrounded: 0
-  castPosition: {fileID: 6706189654046637088}
-  radius: 1.5
+  moveSpeed: 3
+  jumpForce: 3.5
+  groundRadius: 0
+  isGrounded: 0
+  playerDetected: 0
+  inputContr: {fileID: 0}
   layermask:
     serializedVersion: 2
     m_Bits: 64
-  playerRenderer: {fileID: 3644676537972767523}
-  playerDetected: 0
-  ableToJump: 0
-  jumpForce: 3.5
+  castPosition: {fileID: 6706189654046637088}
+  playerIndex: 0
 --- !u!114 &4653111593675914879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,22 +187,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a555bbd104a44a8c7941b88d24a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptObj: {fileID: 11400000, guid: 88bcb7cba59460e4d961fb752a623a42, type: 2}
-  _playerManag: {fileID: 1447333189412635343}
-  _instantiateObj: {fileID: 0}
-  _detectPoint: {fileID: 0}
+  scriptableObj: {fileID: 0}
   instantiatePoint: {fileID: 2400513241999981145}
-  startPoint: {fileID: 0}
-  endPoint: {fileID: 0}
-  isExpanding: 0
-  isExpandingBack: 0
-  stopScalingCuzEndPointReached: 0
-  teleportedToEndPoint: 0
+  detectPointOffset: {x: 0, y: 0, z: 0}
+  isExtending: 0
+  isRetracting: 0
+  isCollapsing: 0
+  ableToMove: 0
+  objectCreated: 0
+  reached_endPoint: 0
+  reached_connectPoint: 0
   isDestroyed: 0
-  scaleFactor: 5
+  freeze: 0
   teleportOffset: {x: 0.25, y: 0.5, z: 0}
-  timeToSpawnObject: 1
-  playerIndex: 0
+  extendDistance: 5
+  extendSpeed: 5
+  collapseSpeed: 0
 --- !u!1 &5505501816648353942
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,10 +337,5 @@ Transform:
 --- !u!4 &2803320273836694600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-  m_PrefabInstance: {fileID: 1051148161302917106}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3644676537972767523 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
   m_PrefabInstance: {fileID: 1051148161302917106}
   m_PrefabAsset: {fileID: 0}

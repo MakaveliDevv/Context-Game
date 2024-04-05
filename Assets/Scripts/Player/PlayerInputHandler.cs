@@ -12,7 +12,9 @@ public class PlayerInputHandler : MonoBehaviour
           // Player input component
           playerInput = GetComponent<PlayerInput>();
 
+          #pragma warning disable CS0618 // Type or member is obsolete
           var players = FindObjectsOfType<PlayerController>();
+          #pragma warning restore CS0618 // Type or member is obsolete
 
           // Initialize player index from the playerinput
           var index = playerInput.playerIndex;
@@ -20,7 +22,6 @@ public class PlayerInputHandler : MonoBehaviour
           // Fetch the player index and initialize it to the index from playerinput
           player = players.FirstOrDefault(m => m.GetPlayerIndex() == index);
           Debug.Log(player.GetPlayerIndex());
-
      }
 
      // Movement input
@@ -37,6 +38,18 @@ public class PlayerInputHandler : MonoBehaviour
                player.Jump();
                Debug.Log("We can jump");
           }
+     }
+
+     public void TransformAbility(InputAction.CallbackContext ctx)
+     {
+          if(ctx.performed) 
+               player.TransformInput();
+     }
+
+     public void TransformBackAbility(InputAction.CallbackContext ctx) 
+     {
+          if(ctx.performed)
+               player.Transform2Input();
      }
 
      // Extend ability holding

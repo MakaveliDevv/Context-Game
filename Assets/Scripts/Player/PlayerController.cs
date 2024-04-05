@@ -51,12 +51,10 @@ public class PlayerController : MonoBehaviour
         if(hit != null) 
         {
             isGrounded = true;
-            // inputContr.ableToMove = true;
 
         } else 
         {
             isGrounded = false;
-            // inputContr.ableToMove = false;
         }
 
         MovePlayer();
@@ -98,14 +96,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TransformInput() 
+    {
+        inputContr.TransformToObject();
+    }
+
+    public void Transform2Input() 
+    {
+        inputContr.TransformToCharacter();
+    }
+
     public void ExtendInput() 
     {
-        inputContr.Extend();
+        // if(TryGetComponent<PlayerManager>(out var player) && player.playerType != PlayerManager.PlayerType.DESIGNER) 
+        inputContr.ExtendObj();
+
+        // else if(TryGetComponent<PlayerManager>(out var designer) && designer.playerType == PlayerManager.PlayerType.DESIGNER)
+        //     inputContr.ExtendDesignersObj();
     }
 
     public void RetractInput() 
     {
-        inputContr.Retract();
+        inputContr.RetractObj();
     }
 
     public void TeleportInput() 

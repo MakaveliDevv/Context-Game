@@ -58,6 +58,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Transform(Designer)",
+                    "type": "Button",
+                    "id": "c3605c7c-9e7f-4509-bcf6-aa1cca145962",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TransformBack(Designer)",
+                    "type": "Button",
+                    "id": "975ff921-0924-4f6d-8d9d-843b7bda3594",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -196,7 +214,7 @@
                 {
                     "name": "",
                     "id": "d32b9a66-60d7-4dc8-acb4-ed9eaf72e236",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/r",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
@@ -223,6 +241,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ActivateAbilityPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ecc7cb10-398a-4472-80ef-31cccda30560",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Transform(Designer)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "582d21e7-3175-4362-826d-9bf60ff7af74",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TransformBack(Designer)",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

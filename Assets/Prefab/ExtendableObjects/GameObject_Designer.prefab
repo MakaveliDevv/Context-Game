@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4473636772353536623}
   m_Layer: 0
   m_Name: CollapsePoint
-  m_TagString: CollapsePoint_Artist
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_TagString: CollapsePoint_Designer
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  NameTag: CollapsePoint_Artist
+  NameTag: CollapsePoint_Designer
 --- !u!1 &2980636574236898806
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,8 +57,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1698691634808036842}
   m_Layer: 0
-  m_Name: GameObject_Artist
-  m_TagString: ArtistObject
+  m_Name: GameObject_Designer
+  m_TagString: DesignerObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 667528116428803712}
   - component: {fileID: 7846329124363839717}
   m_Layer: 6
-  m_Name: Bridge
+  m_Name: GrapplingLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,8 +106,8 @@ Transform:
   m_GameObject: {fileID: 5916654192640882415}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4945, y: 0, z: 0}
-  m_LocalScale: {x: 0.148365, y: 0.15, z: 1}
+  m_LocalPosition: {x: -0.4982, y: 0, z: 0}
+  m_LocalScale: {x: 0.077727005, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6530401181440193372}
@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 158788599876252290, guid: e668124a8b3df6347bef84abefc84bcf, type: 3}
+  m_Sprite: {fileID: 6201511272984061373, guid: cc0417565a240984cabaa14caa33c22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -198,17 +198,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.22727251, y: 0.111550674}
+  m_Offset: {x: -0.103152275, y: -0.090395994}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.8046875, y: 0.7890625}
+    oldSize: {x: 12.92, y: 1.72}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.8883924, y: 0.21431443}
+  m_Size: {x: 12.4202, y: 0.23482002}
   m_EdgeRadius: 0
 --- !u!1 &8106099493235343286
 GameObject:
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 5201925563715927288}
   m_Layer: 0
   m_Name: ExtendPoint
-  m_TagString: ExtendPoint_Artist
+  m_TagString: ExtendPoint_Designer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,4 +256,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  NameTag: ExtendPoint_Artist
+  NameTag: ExtendPoint_Designer

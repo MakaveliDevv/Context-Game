@@ -80,6 +80,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Transform(Designer)"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3605c7c-9e7f-4509-bcf6-aa1cca145962"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TransformBack(Designer)"",
+                    ""type"": ""Button"",
+                    ""id"": ""975ff921-0924-4f6d-8d9d-843b7bda3594"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,7 +236,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d32b9a66-60d7-4dc8-acb4-ed9eaf72e236"",
-                    ""path"": ""<Keyboard>/b"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
@@ -247,6 +265,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""ActivateAbilityPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecc7cb10-398a-4472-80ef-31cccda30560"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Transform(Designer)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""582d21e7-3175-4362-826d-9bf60ff7af74"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TransformBack(Designer)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +301,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Gameplay_Teleport = m_Gameplay.FindAction("Teleport", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Retract = m_Gameplay.FindAction("Retract", throwIfNotFound: true);
+        m_Gameplay_TransformDesigner = m_Gameplay.FindAction("Transform(Designer)", throwIfNotFound: true);
+        m_Gameplay_TransformBackDesigner = m_Gameplay.FindAction("TransformBack(Designer)", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,6 +370,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Teleport;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Retract;
+    private readonly InputAction m_Gameplay_TransformDesigner;
+    private readonly InputAction m_Gameplay_TransformBackDesigner;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
@@ -338,6 +382,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Teleport => m_Wrapper.m_Gameplay_Teleport;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Retract => m_Wrapper.m_Gameplay_Retract;
+        public InputAction @TransformDesigner => m_Wrapper.m_Gameplay_TransformDesigner;
+        public InputAction @TransformBackDesigner => m_Wrapper.m_Gameplay_TransformBackDesigner;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +411,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Retract.started += instance.OnRetract;
             @Retract.performed += instance.OnRetract;
             @Retract.canceled += instance.OnRetract;
+            @TransformDesigner.started += instance.OnTransformDesigner;
+            @TransformDesigner.performed += instance.OnTransformDesigner;
+            @TransformDesigner.canceled += instance.OnTransformDesigner;
+            @TransformBackDesigner.started += instance.OnTransformBackDesigner;
+            @TransformBackDesigner.performed += instance.OnTransformBackDesigner;
+            @TransformBackDesigner.canceled += instance.OnTransformBackDesigner;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -387,6 +439,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Retract.started -= instance.OnRetract;
             @Retract.performed -= instance.OnRetract;
             @Retract.canceled -= instance.OnRetract;
+            @TransformDesigner.started -= instance.OnTransformDesigner;
+            @TransformDesigner.performed -= instance.OnTransformDesigner;
+            @TransformDesigner.canceled -= instance.OnTransformDesigner;
+            @TransformBackDesigner.started -= instance.OnTransformBackDesigner;
+            @TransformBackDesigner.performed -= instance.OnTransformBackDesigner;
+            @TransformBackDesigner.canceled -= instance.OnTransformBackDesigner;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -412,5 +470,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnTeleport(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRetract(InputAction.CallbackContext context);
+        void OnTransformDesigner(InputAction.CallbackContext context);
+        void OnTransformBackDesigner(InputAction.CallbackContext context);
     }
 }
