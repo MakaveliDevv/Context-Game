@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db40714634ef45342881d1a531fe9cc6
+guid: 39b01b0960822a042b1cfd6de1881108
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 158788599876252290
-    second: artistT-export_0
+      213: -2931371070113652417
+    second: artistT-export2_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -98,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: artistT-export_0
+      name: artistT-export2_0
       rect:
         serializedVersion: 2
-        x: 119
-        y: 319
-        width: 1742
-        height: 202
+        x: 31
+        y: 88
+        width: 495
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 282710ae361243200800000000000000
-      internalID: 158788599876252290
+      spriteID: f31e405fa8da157d0800000000000000
+      internalID: -2931371070113652417
       vertices: []
       indices: 
       edges: []
@@ -121,7 +121,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      artistT-export_0: 158788599876252290
+      artistT-export2_0: -2931371070113652417
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

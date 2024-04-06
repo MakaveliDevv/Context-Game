@@ -7,11 +7,12 @@ TagManager:
   - CollapsePoint_Artist
   - ExtendPoint_Artist
   - ArtistObject
-  - DetectPoint
-  - ConnectPoint
   - CollapsePoint_Designer
   - ExtendPoint_Designer
   - DesignerObject
+  - BridgeType
+  - LadderType
+  - GrapplingType
   layers:
   - Default
   - TransparentFX

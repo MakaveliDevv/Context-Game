@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 475139a87bf36d6449d7ddefbc1340ec, type: 3}
-  m_Name: ExtendableObj_Artist
+  m_Name: ExtendableObj_Developer
   m_EditorClassIdentifier: 
-  extendableObject: {fileID: 5881086490915225072, guid: 606da005cff84494ebf5c22ec2faa356, type: 3}
+  extendableObject: {fileID: 6118978426563117091, guid: fadb6e39e6c66df4a92fb83b3c1a6f30, type: 3}
   detectPoint: {fileID: 2194041748212303040, guid: 2995f5c9eba479244a24a698210017a2, type: 3}
   initialScale: {x: 1, y: 1, z: 1}

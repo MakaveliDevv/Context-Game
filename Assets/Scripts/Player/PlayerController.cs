@@ -113,12 +113,6 @@ public class PlayerController : MonoBehaviour
         inputContr.ExtendObj();
     }
 
-    // Designer
-    // public void ExtendInputDesigner() 
-    // {
-    //     inputContr.ExtendDesignersObj();
-    // }
-
     public void RetractInput() 
     {
         inputContr.RetractObj();

@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 493606132226299092}
-  - component: {fileID: 4011812053276494123}
   - component: {fileID: 6817903704044456824}
   - component: {fileID: 1806032628668266307}
+  - component: {fileID: 4011812053276494123}
   - component: {fileID: 5351341571963745013}
-  - component: {fileID: 517615932188834875}
+  - component: {fileID: 7911190426243235080}
   m_Layer: 0
   m_Name: Developer
   m_TagString: Player
@@ -38,22 +38,6 @@ Transform:
   - {fileID: 7218117889271267473}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4011812053276494123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 565569770838857197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47702eee1d689a408f8ca3c343dad62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  artist: 0
-  designer: 0
-  developer: 0
-  playerType: 2
 --- !u!50 &6817903704044456824
 Rigidbody2D:
   serializedVersion: 4
@@ -118,6 +102,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.23}
   m_Size: {x: 0.27, y: 0.22}
   m_Direction: 1
+--- !u!114 &4011812053276494123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565569770838857197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47702eee1d689a408f8ca3c343dad62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artist: 0
+  designer: 0
+  developer: 0
+  playerType: 2
 --- !u!114 &5351341571963745013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,22 +130,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f2fb2cff5ddb4449a7ca5cc9060a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
   inputDirection: {x: 0, y: 0}
   inputVector: {x: 0, y: 0}
-  isMoving: 0
-  playerIndex: 1
-  playerIsGrounded: 0
-  castPosition: {fileID: 9219892150234057646}
-  radius: 0.5
+  moveSpeed: 3
+  jumpForce: 3.5
+  groundRadius: 0.5
+  isGrounded: 0
+  playerDetected: 0
+  inputContr: {fileID: 0}
   layermask:
     serializedVersion: 2
     m_Bits: 64
-  playerRenderer: {fileID: 8095498599625320442}
-  playerDetected: 0
-  ableToJump: 0
-  jumpForce: 3.5
---- !u!114 &517615932188834875
+  castPosition: {fileID: 9219892150234057646}
+  playerIndex: 0
+--- !u!114 &7911190426243235080
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,22 +155,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421a555bbd104a44a8c7941b88d24a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptObj: {fileID: 11400000, guid: e4ca268b93388384cab5438f4f0bcc99, type: 2}
-  _playerManag: {fileID: 4011812053276494123}
-  _instantiateObj: {fileID: 0}
-  _detectPoint: {fileID: 0}
+  scriptableObj: {fileID: 11400000, guid: d787d775235354a4ebf86eb30b5d2acf, type: 2}
   instantiatePoint: {fileID: 7177846130640709248}
-  startPoint: {fileID: 0}
-  endPoint: {fileID: 0}
-  isExpanding: 0
-  isExpandingBack: 0
-  stopScalingCuzEndPointReached: 0
-  teleportedToEndPoint: 0
+  detectPointOffset: {x: 0, y: 0.5, z: 0}
+  isExtending: 0
+  isRetracting: 0
+  isCollapsing: 0
+  ableToMove: 0
+  isNegative: 0
+  isPositive: 0
+  objectCreated: 0
+  reached_endPoint: 0
+  reached_connectPoint: 0
   isDestroyed: 0
-  scaleFactor: 2
-  teleportOffset: {x: 1.25, y: 1, z: 0}
-  timeToSpawnObject: 1
-  playerIndex: 0
+  freeze: 0
+  teleportOffset: {x: 0, y: 0, z: 0}
+  extendDistance: 5
+  extendSpeed: 5
+  collapseSpeed: 0
+  rotateMotion: 5
+  rotateLimit: 0
+  rotateSpeed: 0
 --- !u!1 &8963029996015348584
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,14 +216,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 493606132226299092}
     m_Modifications:
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -260,26 +255,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.055
-      objectReference: {fileID: 0}
-    - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.67
-      objectReference: {fileID: 0}
     - target: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_Name
       value: PlayerRendererDev
       objectReference: {fileID: 0}
-    - target: {fileID: 7917265860324680300, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 5698378209282500834, guid: 29652291086b05747973371affd46a1d, type: 3}
-    - target: {fileID: 7917265860324680300, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -293,10 +272,5 @@ Transform:
 --- !u!4 &7218117889271267473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
-  m_PrefabInstance: {fileID: 5501972383348831019}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8095498599625320442 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
   m_PrefabInstance: {fileID: 5501972383348831019}
   m_PrefabAsset: {fileID: 0}

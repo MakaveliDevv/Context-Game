@@ -82,4 +82,21 @@ public class PlayerInputHandler : MonoBehaviour
           if(ctx.performed) 
                player.TeleportInput(); 
      }
+
+     // Rotate
+     public void RotatePositive(InputAction.CallbackContext ctx) 
+     {
+          player.inputContr.isNegative = false;
+          player.inputContr.isPositive = ctx.performed;
+          if (ctx.performed && playerManag.playerType == PlayerManager.PlayerType.DESIGNER) 
+               player.inputContr.RotateObject(1); // Rotate positively
+     }
+
+     public void RotateNegative(InputAction.CallbackContext ctx) 
+     {
+          player.inputContr.isPositive = false;
+          player.inputContr.isNegative = ctx.performed;
+          if (ctx.performed && playerManag.playerType == PlayerManager.PlayerType.DESIGNER)
+               player.inputContr.RotateObject(-1); // Rotate negatively
+     }
 }

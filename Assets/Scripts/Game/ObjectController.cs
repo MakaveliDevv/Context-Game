@@ -18,7 +18,7 @@ public class Controller : MonoBehaviour
 
     // Bools
     [Header("Bools")]
-    public bool isExtending, isRetracting, isCollapsing, ableToMove;
+    public bool isExtending, isRetracting, isCollapsing, ableToMove, isNegative, isPositive;
     public bool objectCreated, reached_endPoint, reached_connectPoint, isDestroyed;
     public bool freeze;
 
@@ -29,6 +29,9 @@ public class Controller : MonoBehaviour
     [SerializeField] private float extendDistance = 5f;
     [SerializeField] private float extendSpeed = 5f;
     [SerializeField] private float collapseSpeed;
+    [SerializeField] private float rotateMotion = 5f;
+    [SerializeField] private float rotateLimit;
+    [SerializeField] private int rotateSpeed;
 
     void Start() 
     {
@@ -47,22 +50,23 @@ public class Controller : MonoBehaviour
             // Instantiate
             newGameObject = Instantiate(_obj.extendableObject, instantiatePoint.transform.position, _obj.extendableObject.transform.rotation) as GameObject;
             objectCreated = true;
+            isDestroyed = false;
 
             // Set the object as the child of the player
             newGameObject.transform.SetParent(transform);
             newGameObject.name = "NEW_GAME_OBJECT!!!";
 
             // Fetch all points
-            Point[] pivotPoints = _obj.extendableObject.GetComponentsInChildren<Point>();
+            Point[] points = _obj.extendableObject.GetComponentsInChildren<Point>();
 
             // Iterate through the amounts of object points
-            for (int i = 0; i < pivotPoints.Length; i++)
+            for (int i = 0; i < points.Length; i++)
             {
                 // Initialize the objects
-                extendPoint = GameObject.FindGameObjectWithTag(pivotPoints[0].NameTag).transform;
-                collapsePoint = GameObject.FindGameObjectWithTag(pivotPoints[1].NameTag).transform;
+                extendPoint = GameObject.FindGameObjectWithTag(points[0].NameTag).transform;
+                collapsePoint = GameObject.FindGameObjectWithTag(points[1].NameTag).transform;
 
-                Debug.Log(pivotPoints[i].NameTag);
+                Debug.Log(points[i].NameTag);
             }
 
             // Instantiate the detect point
@@ -71,8 +75,6 @@ public class Controller : MonoBehaviour
            // Initalize the point to the detectpoint
             detectPoint = newDetectPoint.transform;
             newDetectPoint.transform.SetParent(newGameObject.transform);
-
-            isDestroyed = false;
 
             // Trigger the collider
             TryGetComponent<CapsuleCollider2D>(out var collider);
@@ -239,55 +241,45 @@ public class Controller : MonoBehaviour
     // Is for the designer
     protected void TransformBack() 
     {
-        // Transform back only when not retracting
-        TryGetComponent<CapsuleCollider2D>(out var collider);
-        collider.isTrigger = false;
+        if(!isExtending && !isRetracting && !isCollapsing && !reached_endPoint && !reached_connectPoint) 
+        {
+            // Transform back only when not retracting
+            TryGetComponent<CapsuleCollider2D>(out var collider);
+            collider.isTrigger = false;
 
-        // Enable the sprite renderer
-        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
-        sprite.enabled = true;
+            // Enable the sprite renderer
+            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+            sprite.enabled = true;
 
-        // Unfreeze players movement
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.None;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        ableToMove = true;
+            // Unfreeze players movement
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            ableToMove = true;
 
-        DestroyObject(newGameObject);
+            DestroyObject(newGameObject);
+        }
     }
 
-    // protected void RotateObject(ExtendableObj _obj, bool _true, bool _false) 
-    // {
-    //     // Get the local rotation from the object
-    //     Quaternion localRotation = _obj.extendableObject.transform.localRotation;
+    public void RotateObject(float rotationAmount)
+    {
+        // Get the current rotation angle
+        float currentRotation = newGameObject.transform.localRotation.eulerAngles.z;
 
-    //     // Define the rotation angle
-    //     float rotationAngle = 0f;
+        // Adjust the current rotation to be within the range of -180 to 180 degrees
+        currentRotation = Mathf.Repeat(currentRotation + 180f, 360f) - 180f;
 
-    //     // Determine the rotation direction based on _true and _false parameters
-    //     if (_true)
-    //     {
-    //         // Rotate positively
-    //         rotationAngle = 10f; // Example rotation angle, you can adjust as needed
-    //     }
-    //     else if (_false)
-    //     {
-    //         // Rotate negatively
-    //         rotationAngle = -10f; // Example rotation angle, you can adjust as needed
-    //     }
-    //     else
-    //     {
-    //         // No rotation direction specified
-    //         Debug.LogError("Neither positive nor negative rotation direction specified!");
-    //         return;
-    //     }
+        // Calculate the target rotation angle after applying the rotation amount
+        float targetRotation = currentRotation + (rotationAmount * rotateSpeed);
 
-    //     // Apply the rotation to the object
-    //     Quaternion newRotation = Quaternion.Euler(0f, 0f, Mathf.Clamp(localRotation.eulerAngles.z + rotationAngle, -70f, 70f));
-        
-    //     // Set the new local rotation to the object
-    //     _obj.extendableObject.transform.localRotation = newRotation;
-    // }
+        // Clamp the target rotation angle within the specified limits
+        float clampedRotation = Mathf.Clamp(targetRotation, -70f, 70f);
+
+        // Apply the clamped rotation to the object
+        Quaternion newRotation = Quaternion.Euler(0f, 0f, clampedRotation);
+        newGameObject.transform.localRotation = newRotation;
+    }
+
 
     public void Freeze() 
     {

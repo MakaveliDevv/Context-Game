@@ -186,6 +186,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 975ff921-0924-4f6d-8d9d-843b7bda3594
     m_ActionName: 'Gameplay/TransformBack(Designer)[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5707325142566946935}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: RotateNegative
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7bfca5c7-40c0-4447-b179-3ee4bd2a8496
+    m_ActionName: 'Gameplay/RotateNegative[/Keyboard/j]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5707325142566946935}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: RotatePositive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f168b31d-a00c-4ff6-9522-6a6fdeaee955
+    m_ActionName: 'Gameplay/RotatePositive[/Keyboard/l]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -203,3 +235,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d4a0f2faa813544a872a0da43feb09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManag: {fileID: 0}

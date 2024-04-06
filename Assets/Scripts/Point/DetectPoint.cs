@@ -38,7 +38,8 @@ public class DetectPoint : Point
 
             foreach (Collider2D collider in colliders)
             {
-                if (collider.TryGetComponent<Point>(out var point) && point.type == Type.CONNECT_POINT)
+                // Check of the collided point has the same tag as the this points tag
+                if (collider.TryGetComponent<ConnectPoint>(out var point) && point.type == Type.CONNECT_POINT)
                 {
                     // Freeze object
                     InputController inputContr = GetComponentInParent<InputController>();

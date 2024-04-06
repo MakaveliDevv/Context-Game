@@ -98,6 +98,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateNegative"",
+                    ""type"": ""Button"",
+                    ""id"": ""7bfca5c7-40c0-4447-b179-3ee4bd2a8496"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotatePositive"",
+                    ""type"": ""Button"",
+                    ""id"": ""f168b31d-a00c-4ff6-9522-6a6fdeaee955"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -287,6 +305,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""TransformBack(Designer)"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db6a608b-501b-4a72-b63b-9158420de650"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateNegative"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54adf3c2-55a8-49ad-bb46-c31debdf292e"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotatePositive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -303,6 +343,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Gameplay_Retract = m_Gameplay.FindAction("Retract", throwIfNotFound: true);
         m_Gameplay_TransformDesigner = m_Gameplay.FindAction("Transform(Designer)", throwIfNotFound: true);
         m_Gameplay_TransformBackDesigner = m_Gameplay.FindAction("TransformBack(Designer)", throwIfNotFound: true);
+        m_Gameplay_RotateNegative = m_Gameplay.FindAction("RotateNegative", throwIfNotFound: true);
+        m_Gameplay_RotatePositive = m_Gameplay.FindAction("RotatePositive", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +414,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Retract;
     private readonly InputAction m_Gameplay_TransformDesigner;
     private readonly InputAction m_Gameplay_TransformBackDesigner;
+    private readonly InputAction m_Gameplay_RotateNegative;
+    private readonly InputAction m_Gameplay_RotatePositive;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
@@ -384,6 +428,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Retract => m_Wrapper.m_Gameplay_Retract;
         public InputAction @TransformDesigner => m_Wrapper.m_Gameplay_TransformDesigner;
         public InputAction @TransformBackDesigner => m_Wrapper.m_Gameplay_TransformBackDesigner;
+        public InputAction @RotateNegative => m_Wrapper.m_Gameplay_RotateNegative;
+        public InputAction @RotatePositive => m_Wrapper.m_Gameplay_RotatePositive;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -417,6 +463,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @TransformBackDesigner.started += instance.OnTransformBackDesigner;
             @TransformBackDesigner.performed += instance.OnTransformBackDesigner;
             @TransformBackDesigner.canceled += instance.OnTransformBackDesigner;
+            @RotateNegative.started += instance.OnRotateNegative;
+            @RotateNegative.performed += instance.OnRotateNegative;
+            @RotateNegative.canceled += instance.OnRotateNegative;
+            @RotatePositive.started += instance.OnRotatePositive;
+            @RotatePositive.performed += instance.OnRotatePositive;
+            @RotatePositive.canceled += instance.OnRotatePositive;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -445,6 +497,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @TransformBackDesigner.started -= instance.OnTransformBackDesigner;
             @TransformBackDesigner.performed -= instance.OnTransformBackDesigner;
             @TransformBackDesigner.canceled -= instance.OnTransformBackDesigner;
+            @RotateNegative.started -= instance.OnRotateNegative;
+            @RotateNegative.performed -= instance.OnRotateNegative;
+            @RotateNegative.canceled -= instance.OnRotateNegative;
+            @RotatePositive.started -= instance.OnRotatePositive;
+            @RotatePositive.performed -= instance.OnRotatePositive;
+            @RotatePositive.canceled -= instance.OnRotatePositive;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -472,5 +530,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnRetract(InputAction.CallbackContext context);
         void OnTransformDesigner(InputAction.CallbackContext context);
         void OnTransformBackDesigner(InputAction.CallbackContext context);
+        void OnRotateNegative(InputAction.CallbackContext context);
+        void OnRotatePositive(InputAction.CallbackContext context);
     }
 }
