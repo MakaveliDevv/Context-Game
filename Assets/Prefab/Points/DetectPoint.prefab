@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  connectPoint: 0
   NameTag: DetectPoint
   isMoving: 0
-  radius: 0.15
+  radius: 0.5

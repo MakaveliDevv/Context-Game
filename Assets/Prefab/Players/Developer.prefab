@@ -142,7 +142,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   castPosition: {fileID: 9219892150234057646}
-  playerIndex: 0
+  playerIndex: 1
 --- !u!114 &7911190426243235080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   isDestroyed: 0
   freeze: 0
   teleportOffset: {x: 0, y: 0, z: 0}
-  extendDistance: 5
+  extendDistance: 3.5
   extendSpeed: 5
   collapseSpeed: 0
   rotateMotion: 5
