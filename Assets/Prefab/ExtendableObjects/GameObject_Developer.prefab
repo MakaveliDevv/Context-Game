@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 279270074793139730}
   m_Layer: 0
   m_Name: CollapsePoint
-  m_TagString: CollapsePoint_Designer
+  m_TagString: CollapsePoint_Dev
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  NameTag: CollapsePoint_Designer
+  connectPoint: 1
+  NameTag: CollapsePoint_Dev
 --- !u!1 &4939895501228459911
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0.4565, y: 0, z: 0}
-  m_LocalScale: {x: 0.12071526, y: 0.13999635, z: 1}
+  m_LocalScale: {x: 0.19065465, y: 0.13999635, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1365225881093063349}
@@ -143,7 +144,7 @@ GameObject:
   - component: {fileID: 354110854228100756}
   m_Layer: 0
   m_Name: GameObject_Developer
-  m_TagString: DesignerObject
+  m_TagString: DevObject
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,7 +223,7 @@ GameObject:
   - component: {fileID: 4859798542148262326}
   m_Layer: 0
   m_Name: ExtendPoint
-  m_TagString: ExtendPoint_Designer
+  m_TagString: ExtendPoint_Dev
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,4 +257,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  NameTag: ExtendPoint_Designer
+  connectPoint: 1
+  NameTag: ExtendPoint_Dev

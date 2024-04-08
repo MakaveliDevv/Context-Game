@@ -193,6 +193,8 @@ MonoBehaviour:
   isRetracting: 0
   isCollapsing: 0
   ableToMove: 0
+  isNegative: 0
+  isPositive: 0
   objectCreated: 0
   reached_endPoint: 0
   reached_connectPoint: 0
@@ -202,6 +204,9 @@ MonoBehaviour:
   extendDistance: 3.5
   extendSpeed: 2
   collapseSpeed: 0.5
+  rotateMotion: 5
+  rotateLimit: 0
+  rotateSpeed: 0
 --- !u!1001 &9098661235423020976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336,7 +341,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -5667785163459470533, guid: 29d005d153194da4a90a10e62e5cd800, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1

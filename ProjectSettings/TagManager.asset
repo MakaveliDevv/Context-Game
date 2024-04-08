@@ -13,6 +13,10 @@ TagManager:
   - BridgeType
   - LadderType
   - GrapplingType
+  - DetectPoint
+  - CollapsePoint_Dev
+  - ExtendPoint_Dev
+  - DevObject
   layers:
   - Default
   - TransparentFX

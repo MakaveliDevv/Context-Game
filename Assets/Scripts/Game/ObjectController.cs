@@ -71,6 +71,32 @@ public class Controller : MonoBehaviour
 
             // Instantiate the detect point
             GameObject newDetectPoint = Instantiate(_obj.detectPoint, extendPoint.transform.position - detectPointOffset, Quaternion.identity) as GameObject;
+            newDetectPoint.TryGetComponent<DetectPoint>(out var point);
+            
+            PlayerManager playermanag = GetComponent<PlayerManager>(); 
+            switch (playermanag.playerType)
+            {
+                case(PlayerManager.PlayerType.ARTIST):
+                    // Set detect point to Brigde type
+                    point.connectPoint = Point.ConnectPointType.BRIDGE_TYPE;
+                    point.NameTag = "BridgeType";
+                    point.tag = point.NameTag;
+                break;
+
+                case(PlayerManager.PlayerType.DEVELOPER):
+                    // Set detect point to Ladder type]
+                    point.connectPoint = Point.ConnectPointType.LADDER_TYPE;
+                    point.NameTag = "LadderType";
+                    point.tag = point.NameTag;
+                break;
+
+                case(PlayerManager.PlayerType.DESIGNER):
+                    // Set detect point to Grappling type
+                    point.connectPoint = Point.ConnectPointType.GRAPPLING_TYPE;
+                    point.NameTag = "GrapplingType";
+                    point.tag = point.NameTag;
+                break;
+            }           
            
            // Initalize the point to the detectpoint
             detectPoint = newDetectPoint.transform;

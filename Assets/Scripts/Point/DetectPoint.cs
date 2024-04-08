@@ -28,6 +28,36 @@ public class DetectPoint : Point
         CheckForCollision();
     }
 
+    // private bool CheckForCollision() 
+    // {
+    //     movementCoroutine = StartCoroutine(CheckMovement());
+
+    //     if (isMoving)
+    //     {
+    //         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+
+    //         foreach (Collider2D collider in colliders)
+    //         {
+
+    //             // We need to check which ConnectPointType we hit
+
+    
+    //             // And then freeze
+                
+    //             // Check of the collided point has the same tag as the this points tag
+    //             if (collider.TryGetComponent<ConnectPoint>(out var point) && point.type == PointType.CONNECT_POINT)
+    //             {
+    //                 // Freeze object
+    //                 InputController inputContr = GetComponentInParent<InputController>();
+    //                 inputContr.Freeze();
+    //             }
+    //         }
+    //     }
+
+    //     return false;
+    // }
+
+
     private bool CheckForCollision() 
     {
         movementCoroutine = StartCoroutine(CheckMovement());
@@ -38,18 +68,50 @@ public class DetectPoint : Point
 
             foreach (Collider2D collider in colliders)
             {
-                // Check of the collided point has the same tag as the this points tag
-                if (collider.TryGetComponent<ConnectPoint>(out var point) && point.type == Type.CONNECT_POINT)
+                // Check if the collider is a connect point
+                if (collider.TryGetComponent<ConnectPoint>(out var point) && point.type == PointType.CONNECT_POINT)
                 {
-                    // Freeze object
-                    InputController inputContr = GetComponentInParent<InputController>();
-                    inputContr.Freeze();
+                    // Check if the connect point's type matches the player's type
+                    PlayerManager playerManager = GetComponentInParent<PlayerManager>();
+                    if (playerManager != null)
+                    {
+                        switch (playerManager.playerType)
+                        {
+                            case PlayerManager.PlayerType.ARTIST:
+                                if (point.connectPoint == ConnectPointType.BRIDGE_TYPE)
+                                {
+                                    // Freeze object
+                                    InputController inputContr = GetComponentInParent<InputController>();
+                                    inputContr.Freeze();
+                                }
+                                break;
+
+                            case PlayerManager.PlayerType.DEVELOPER:
+                                if (point.connectPoint == ConnectPointType.LADDER_TYPE)
+                                {
+                                    // Freeze object
+                                    InputController inputContr = GetComponentInParent<InputController>();
+                                    inputContr.Freeze();
+                                }
+                                break;
+
+                            case PlayerManager.PlayerType.DESIGNER:
+                                if (point.connectPoint == ConnectPointType.GRAPPLING_TYPE)
+                                {
+                                    // Freeze object
+                                    InputController inputContr = GetComponentInParent<InputController>();
+                                    inputContr.Freeze();
+                                }
+                                break;
+                        }
+                    }
                 }
             }
         }
 
         return false;
     }
+
 
 
     IEnumerator CheckMovement()
