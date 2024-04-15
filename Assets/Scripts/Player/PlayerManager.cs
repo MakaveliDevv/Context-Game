@@ -9,16 +9,14 @@ public class PlayerManager : MonoBehaviour
 
     [HideInInspector] public static PlayerManager instance;
 
+
     void Awake() 
     {
-        if(instance != null) 
-            Destroy(this);
-        
-        else
-            instance = this;
+        instance = this;
 
     }
     #endregion
+    // public PlayerController playerController; // This is the reference to the PlayerController
 
     public bool artist;
     public bool designer;

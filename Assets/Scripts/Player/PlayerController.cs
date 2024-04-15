@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     // Movement
     public Vector2 inputDirection = Vector2.zero;   
     public Vector2 inputVector = Vector2.zero;
-    // private Vector2 vecGravity;
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
     public float groundRadius;
@@ -28,11 +27,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         inputContr = GetComponent<InputController>();
         renderer = GetComponentInChildren<SpriteRenderer>();
-    }
-
-    void Start() 
-    {
-        // vecGravity = new(0f, - Physics2D.gravity.y);
     }
 
     public int GetPlayerIndex() 

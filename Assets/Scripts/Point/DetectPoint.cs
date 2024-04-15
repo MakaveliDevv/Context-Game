@@ -28,35 +28,6 @@ public class DetectPoint : Point
         CheckForCollision();
     }
 
-    // private bool CheckForCollision() 
-    // {
-    //     movementCoroutine = StartCoroutine(CheckMovement());
-
-    //     if (isMoving)
-    //     {
-    //         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
-    //         foreach (Collider2D collider in colliders)
-    //         {
-
-    //             // We need to check which ConnectPointType we hit
-
-    
-    //             // And then freeze
-                
-    //             // Check of the collided point has the same tag as the this points tag
-    //             if (collider.TryGetComponent<ConnectPoint>(out var point) && point.type == PointType.CONNECT_POINT)
-    //             {
-    //                 // Freeze object
-    //                 InputController inputContr = GetComponentInParent<InputController>();
-    //                 inputContr.Freeze();
-    //             }
-    //         }
-    //     }
-
-    //     return false;
-    // }
-
 
     private bool CheckForCollision() 
     {

@@ -99,8 +99,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.23}
-  m_Size: {x: 0.27, y: 0.22}
+  m_Offset: {x: 0, y: -0.25}
+  m_Size: {x: 0.21, y: 0.19}
   m_Direction: 1
 --- !u!114 &4011812053276494123
 MonoBehaviour:
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableObj: {fileID: 11400000, guid: d787d775235354a4ebf86eb30b5d2acf, type: 2}
   instantiatePoint: {fileID: 7177846130640709248}
-  detectPointOffset: {x: 0, y: 0.5, z: 0}
+  detectPointOffset: {x: 0, y: 0, z: 0}
   isExtending: 0
   isRetracting: 0
   isCollapsing: 0
@@ -169,11 +169,11 @@ MonoBehaviour:
   reached_connectPoint: 0
   isDestroyed: 0
   freeze: 0
-  teleportOffset: {x: 0, y: 0, z: 0}
+  teleportOffset: {x: 0, y: 0.35, z: 0}
   extendDistance: 3.5
-  extendSpeed: 5
-  collapseSpeed: 0
-  rotateMotion: 5
+  extendSpeed: 2
+  collapseSpeed: 0.5
+  rotateMotion: 0
   rotateLimit: 0
   rotateSpeed: 0
 --- !u!1 &8963029996015348584
@@ -254,6 +254,14 @@ PrefabInstance:
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_Name

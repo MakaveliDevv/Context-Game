@@ -20,5 +20,5 @@ public class GameManager : MonoBehaviour
     }
     #endregion
     
-    public List<Point> connectPointList;
+    // public List<Point> connectPointList;
 }

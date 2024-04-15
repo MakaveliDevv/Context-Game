@@ -119,7 +119,7 @@ public class Controller : MonoBehaviour
       
     protected IEnumerator ExtendObject(Transform _extendPoint)
     {
-        if (isExtending || _extendPoint == null)
+        if (isExtending || reached_endPoint || reached_connectPoint || _extendPoint == null)
             yield break; // Exit the coroutine if already extending or object doesnt exist
 
         isRetracting = false;
@@ -289,21 +289,24 @@ public class Controller : MonoBehaviour
 
     public void RotateObject(float rotationAmount)
     {
-        // Get the current rotation angle
-        float currentRotation = newGameObject.transform.localRotation.eulerAngles.z;
+        if(newGameObject != null) 
+        {
+            // Get the current rotation angle
+            float currentRotation = newGameObject.transform.localRotation.eulerAngles.z;
 
-        // Adjust the current rotation to be within the range of -180 to 180 degrees
-        currentRotation = Mathf.Repeat(currentRotation + 180f, 360f) - 180f;
+            // Adjust the current rotation to be within the range of -180 to 180 degrees
+            currentRotation = Mathf.Repeat(currentRotation + 180f, 360f) - 180f;
 
-        // Calculate the target rotation angle after applying the rotation amount
-        float targetRotation = currentRotation + (rotationAmount * rotateSpeed);
+            // Calculate the target rotation angle after applying the rotation amount
+            float targetRotation = currentRotation + (rotationAmount * rotateSpeed);
 
-        // Clamp the target rotation angle within the specified limits
-        float clampedRotation = Mathf.Clamp(targetRotation, -70f, 70f);
+            // Clamp the target rotation angle within the specified limits
+            float clampedRotation = Mathf.Clamp(targetRotation, -70f, 70f);
 
-        // Apply the clamped rotation to the object
-        Quaternion newRotation = Quaternion.Euler(0f, 0f, clampedRotation);
-        newGameObject.transform.localRotation = newRotation;
+            // Apply the clamped rotation to the object
+            Quaternion newRotation = Quaternion.Euler(0f, 0f, clampedRotation);
+            newGameObject.transform.localRotation = newRotation;
+        }
     }
 
 
