@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1815847507782067674}
   - component: {fileID: 4669129757822054949}
   - component: {fileID: 3780604712910680114}
+  - component: {fileID: 5660618515841681991}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec22eb3cd78afec448b07f030b886641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectPointList: []
 --- !u!114 &3780604712910680114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,3 +90,15 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &5660618515841681991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178375980594678777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f475f1d16d2ff4648a5f5b99bea103c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

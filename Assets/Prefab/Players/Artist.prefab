@@ -173,7 +173,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   castPosition: {fileID: 6191614366833247879}
-  playerIndex: 1
+  playerIndex: 0
 --- !u!114 &5767408225184946223
 MonoBehaviour:
   m_ObjectHideFlags: 0
