@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ExtendableObj_Designer
   m_EditorClassIdentifier: 
   extendableObject: {fileID: 6118978426563117091, guid: e0b7058056bea124c927c5462f4b4043, type: 3}
-  detectPoint: {fileID: 2194041748212303040, guid: 2995f5c9eba479244a24a698210017a2, type: 3}
+  detectPoint: {fileID: 3862213514214269178, guid: 299cdfe838c40aa4e827824ab0ae5665, type: 3}
   initialScale: {x: 1, y: 1, z: 1}
