@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: e87fc16cfe59d2142ade6314f4c59492
+guid: 9bffb41756e8cc841af93f07d03a61c3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7443756053782179069
-    second: background_0
+      213: -2299602633118050960
+    second: artist_jump_0
+  - first:
+      213: -8386251278126839948
+    second: artist_jump_1
+  - first:
+      213: 7929224027703704506
+    second: artist_jump_2
+  - first:
+      213: -3280019385177742285
+    second: artist_jump_3
+  - first:
+      213: -2220971176043357834
+    second: artist_jump_4
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -98,22 +110,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background_0
+      name: artist_jump_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2500
-        height: 1000
+        x: 9
+        y: 5
+        width: 48
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 30356abce4772b890800000000000000
-      internalID: -7443756053782179069
+      spriteID: 0751278c69b2610e0800000000000000
+      internalID: -2299602633118050960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artist_jump_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 5
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 477851215ec0e9b80800000000000000
+      internalID: -8386251278126839948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artist_jump_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 5
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abb75cb0e334a0e60800000000000000
+      internalID: 7929224027703704506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artist_jump_3
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 1
+        width: 41
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334e51a5fb70b72d0800000000000000
+      internalID: -3280019385177742285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artist_jump_4
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 5
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 679dd8b8b768d21e0800000000000000
+      internalID: -2220971176043357834
       vertices: []
       indices: 
       edges: []
@@ -121,17 +217,14 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b1ff47e8b1938034183882de5c9e47a7
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 6d948862e41426b4da2c8f342c6909b6, type: 3}
-      name: _NormalMap
-    nameFileIdTable:
-      background_0: -7443756053782179069
+    secondaryTextures: []
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

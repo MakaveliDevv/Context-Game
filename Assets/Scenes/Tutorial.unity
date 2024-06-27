@@ -787,6 +787,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1251882702146361537, guid: 4be6a3604f6fa0d4abd336e8a43b1da5, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5464470200506158119, guid: 4be6a3604f6fa0d4abd336e8a43b1da5, type: 3}
       propertyPath: m_Name
       value: Designer
@@ -844,6 +848,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3812946172474308796, guid: 3d781dc8a1ae9144ea520cf517d445c2, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7062006135355215493, guid: 3d781dc8a1ae9144ea520cf517d445c2, type: 3}
       propertyPath: m_Name
       value: Artist

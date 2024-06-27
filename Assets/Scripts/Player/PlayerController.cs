@@ -68,13 +68,15 @@ public class PlayerController : MonoBehaviour
             // Apply movement
             rb.velocity = new Vector2(inputDirection.x, rb.velocity.y);
 
+     
             // Check if the input is -1 in the X axis
             if(inputDirection.x < 0) 
                 // Then flip the sprite renderer on the X axis
-                renderer.flipX = false;
+                renderer.flipX = true;
 
             else if(inputDirection.x > 0)
-                renderer.flipX = true;
+                renderer.flipX = false;
+            
         
 
             isMoving = rb.velocity.sqrMagnitude > 0.03f;
