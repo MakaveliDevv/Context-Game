@@ -169,6 +169,7 @@ MonoBehaviour:
   isGrounded: 0
   playerDetected: 0
   inputContr: {fileID: 0}
+  animator: {fileID: 7108699682788057161}
   layermask:
     serializedVersion: 2
     m_Bits: 64
@@ -217,11 +218,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -233,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -263,13 +268,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2914120609760555962, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.55
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       propertyPath: m_Name
@@ -295,6 +304,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3812946172474308796}
+    - targetCorrespondingSourceObject: {fileID: 4324040233626817745, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7108699682788057161}
   m_SourcePrefab: {fileID: 100100000, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
 --- !u!1 &4775754598379115361 stripped
 GameObject:
@@ -342,9 +354,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -5667785163459470533, guid: 29d005d153194da4a90a10e62e5cd800, type: 3}
+  m_Sprite: {fileID: -3087059975721833156, guid: a596f98d408f7c647a287d8161fef2b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.32, y: 2.57}
@@ -353,6 +365,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7108699682788057161
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775754598379115361}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 931690e2c2789c5448276f55056b2f56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &5873480692268388891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3442504651407381931, guid: ba368ee268e935d4da4893b5ba3f2dbb, type: 3}
