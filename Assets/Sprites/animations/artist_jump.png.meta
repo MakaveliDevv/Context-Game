@@ -224,7 +224,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      artist_jump_0: -2299602633118050960
+      artist_jump_1: -8386251278126839948
+      artist_jump_2: 7929224027703704506
+      artist_jump_3: -3280019385177742285
+      artist_jump_4: -2220971176043357834
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,14 +13,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool playerDetected;
     private bool ableToJump, isMoving;
 
-
     [HideInInspector] public InputController inputContr;
     private Rigidbody2D rb;
     private new SpriteRenderer renderer;
+    public Animator animator; // Public field to reference Animator
     [SerializeField] private LayerMask layermask;
     public Transform castPosition;
     [SerializeField] private int playerIndex = 0;
-
 
     void Awake()
     {
@@ -42,13 +41,12 @@ public class PlayerController : MonoBehaviour
     void Update() 
     {
         Collider2D hit = Physics2D.OverlapCircle(castPosition.position, groundRadius, layermask);
-        if(hit != null) 
-        {
-            isGrounded = true;
+        isGrounded = hit != null;
 
-        } else 
+        // Update isJumping state when player lands
+        if (isGrounded && animator.GetBool("isJumping"))
         {
-            isGrounded = false;
+            animator.SetBool("isJumping", false);
         }
 
         MovePlayer();
@@ -56,39 +54,38 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer() 
     {
-        if(!playerDetected) // Detected by the ladder
+        if (!playerDetected) // Detected by the ladder
             inputDirection.y = 0f; 
 
-        if(inputContr.ableToMove) 
+        if (inputContr.ableToMove) 
         {
-            inputDirection = new(inputVector.x, 0);
+            inputDirection = new Vector2(inputVector.x, 0);
             inputDirection = transform.TransformDirection(inputDirection);
             inputDirection *= moveSpeed;
 
             // Apply movement
             rb.velocity = new Vector2(inputDirection.x, rb.velocity.y);
 
-     
-            // Check if the input is -1 in the X axis
-            if(inputDirection.x < 0) 
-                // Then flip the sprite renderer on the X axis
-                renderer.flipX = true;
+            // Flip the sprite based on movement direction
+            renderer.flipX = inputDirection.x < 0;
 
-            else if(inputDirection.x > 0)
-                renderer.flipX = false;
-            
-        
-
-            isMoving = rb.velocity.sqrMagnitude > 0.03f;
+            // Set isWalking only if not jumping
+            if (!animator.GetBool("isJumping"))
+            {
+                isMoving = rb.velocity.sqrMagnitude > 0.03f;
+                animator.SetBool("isWalking", isMoving);
+            }
         }
     }
 
     public void Jump() 
     {
-        if(isGrounded) 
+        if (isGrounded) 
         {   
             ableToJump = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            animator.SetBool("isJumping", true); // Set isJumping when player jumps
+            animator.SetBool("isWalking", false); // Ensure isWalking is false when jumping
         }
     }
 

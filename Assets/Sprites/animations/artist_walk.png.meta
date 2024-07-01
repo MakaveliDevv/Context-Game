@@ -224,7 +224,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      artist_walk_0: -3087059975721833156
+      artist_walk_1: -300300040846801711
+      artist_walk_2: 2966918233835346448
+      artist_walk_3: -4897784606411030539
+      artist_walk_4: 3981899918360060512
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
