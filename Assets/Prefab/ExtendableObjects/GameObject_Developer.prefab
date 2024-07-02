@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 8702452694032305277}
   m_Layer: 0
   m_Name: betasten-export
-  m_TagString: Untagged
+  m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   playerMovingOnLadder: 0
+  radius: 2
 --- !u!1 &6118978426563117091
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,8 +204,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7913275525577074223}
-  - component: {fileID: 8523395625716746041}
-  m_Layer: 0
+  - component: {fileID: 2314716067963113177}
+  m_Layer: 6
   m_Name: GameObject_Developer
   m_TagString: DevObject
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -227,7 +228,7 @@ Transform:
   - {fileID: 3185584296643448830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &8523395625716746041
+--- !u!114 &2314716067963113177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

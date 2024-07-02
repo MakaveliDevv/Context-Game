@@ -17,6 +17,7 @@ TagManager:
   - CollapsePoint_Dev
   - ExtendPoint_Dev
   - DevObject
+  - Ladder
   layers:
   - Default
   - TransparentFX

@@ -11,23 +11,23 @@ public class InputController : Controller
 
 
         // Check if the extendable object is active in the hierarchy
-        if (newGameObject != null && newGameObject.activeInHierarchy)
+        if (transformObject != null && transformObject.activeInHierarchy)
         {
             // Fetch the spriter renderer game object
-            var script = newGameObject.GetComponent<Swag>();
+            var script = transformObject.GetComponent<Swag>();
             var spriteRenderer = script.spriteRenderer;
 
-            Debug.Log("Object active in scene");
+            // Debug.Log("Object active in scene");
 
             // Check if the connect point is reached
             if (reached_connectPoint) 
             {
-                Debug.Log("Connect point reached");
+                // Debug.Log("Connect point reached");
                 
                 // If the BoxCollider2D component exists, enable it
                 if (spriteRenderer.TryGetComponent<BoxCollider2D>(out var boxCollider))
                 {
-                    Debug.Log("Enabling BoxCollider2D");
+                    // Debug.Log("Enabling BoxCollider2D");
                     boxCollider.enabled = true;
                     afterReachingConnectPoint = true;
                 }
@@ -46,7 +46,7 @@ public class InputController : Controller
                 // If the BoxCollider2D component exists, enable it
                 if (spriteRenderer.TryGetComponent<BoxCollider2D>(out var boxCollider))
                 {
-                    Debug.Log("Enabling BoxCollider2D");
+                    // Debug.Log("Enabling BoxCollider2D");
                     boxCollider.enabled = true;
                 }
                 else 
@@ -55,6 +55,8 @@ public class InputController : Controller
                 } 
             }
         }
+
+        MoveToLadder();
     }
 
     public void ExtendObj() 

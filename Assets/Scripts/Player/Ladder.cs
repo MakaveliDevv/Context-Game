@@ -1,10 +1,23 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    // private Rigidbody2D rbPlayer;
     public float speed = 6f;
     public bool playerMovingOnLadder = false;
+    public float radius = 2f;
+    private CircleCollider2D circleCol;
+
+    private void Update() 
+    {
+        if(circleCol == null) 
+        {
+            // Add a sphere collider
+            circleCol = transform.AddComponent<CircleCollider2D>();
+            circleCol.isTrigger = true;
+            circleCol.radius = radius;
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D collider) 
     {
@@ -43,5 +56,12 @@ public class Ladder : MonoBehaviour
         {
             player.playerDetected = false; // Reset the flag when player exits the trigger area
         } 
+    }
+
+
+    private void OnDrawGizmos() 
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position, radius);
     }
 }
