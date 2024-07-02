@@ -8,7 +8,8 @@ public class Controller : MonoBehaviour
     [Header("Some Stuff")]
     [SerializeField] protected ExtendableObj scriptableObj; // Scriptable object
     protected Coroutine coroutine;
-    private GameObject newGameObject;
+    protected GameObject newGameObject;
+    // [SerializeField] protected GameObject ExtendableObject;
 
     // Points
     [Header("Points")]
@@ -18,7 +19,7 @@ public class Controller : MonoBehaviour
 
     // Bools
     [Header("Bools")]
-    public bool isExtending, isRetracting, isCollapsing, ableToMove, isNegative, isPositive;
+    public bool isExtending, isRetracting, isCollapsing ,ableToMove, isNegative, isPositive;
     public bool objectCreated, reached_endPoint, reached_connectPoint, isDestroyed;
     public bool freeze;
 
@@ -32,9 +33,10 @@ public class Controller : MonoBehaviour
     [SerializeField] private float rotateMotion = 5f;
     [SerializeField] private float rotateLimit;
     [SerializeField] private int rotateSpeed;
-
-    void Start() 
+    
+    void Awake() 
     {
+        // ExtendableObject = scriptableObj.extendableObject;
         initlialScale = scriptableObj.initialScale;
 
         ableToMove = true;
@@ -207,7 +209,8 @@ public class Controller : MonoBehaviour
         }
     }
 
-    protected IEnumerator CollapseObject(Transform _collapsePoint) 
+    // Method for reaching the connect point
+    protected IEnumerator CollapseObject(Transform _collapsePoint)
     {
         if (isCollapsing)
             yield break; // Exit the coroutine if already retracting
@@ -258,7 +261,6 @@ public class Controller : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.None;
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 ableToMove = true;
-
             }
         }
 
@@ -319,6 +321,9 @@ public class Controller : MonoBehaviour
         isExtending = false;
         reached_connectPoint = true;
         freeze = true;
+
+        // var script = newGameObject.GetComponent<Swag>();
+        // script.spriteRenderer.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     bool DestroyObject(GameObject _gameObject) 

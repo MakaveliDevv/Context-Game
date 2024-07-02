@@ -48,4 +48,4 @@ MonoBehaviour:
   connectPoint: 1
   NameTag: 
   isMoving: 0
-  radius: 0.25
+  radius: 0.1
