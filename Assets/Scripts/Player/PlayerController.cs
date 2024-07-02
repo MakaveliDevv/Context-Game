@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     // Movement
-    public Vector2 inputDirection = Vector2.zero;   
+    public Vector2 inputDirection = Vector2.zero;
     public Vector2 inputVector = Vector2.zero;
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 5f;
@@ -21,24 +21,29 @@ public class PlayerController : MonoBehaviour
     public Transform castPosition;
     [SerializeField] private int playerIndex = 0;
 
+    // Audio
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip jumpSound; // Public field to reference jump sound
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         inputContr = GetComponent<InputController>();
         renderer = GetComponentInChildren<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
     }
 
-    public int GetPlayerIndex() 
+    public int GetPlayerIndex()
     {
         return playerIndex;
     }
 
-    public void SetInputVector(Vector2 direction) 
+    public void SetInputVector(Vector2 direction)
     {
         inputVector = direction;
     }
 
-    void Update() 
+    void Update()
     {
         Collider2D hit = Physics2D.OverlapCircle(castPosition.position, groundRadius, layermask);
         isGrounded = hit != null;
@@ -52,12 +57,12 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
     }
 
-    void MovePlayer() 
+    void MovePlayer()
     {
         if (!playerDetected) // Detected by the ladder
-            inputDirection.y = 0f; 
+            inputDirection.y = 0f;
 
-        if (inputContr.ableToMove) 
+        if (inputContr.ableToMove)
         {
             inputDirection = new Vector2(inputVector.x, 0);
             inputDirection = transform.TransformDirection(inputDirection);
@@ -78,40 +83,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Jump() 
+    public void Jump()
     {
-        if (isGrounded) 
-        {   
+        if (isGrounded)
+        {
             ableToJump = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             animator.SetBool("isJumping", true); // Set isJumping when player jumps
             animator.SetBool("isWalking", false); // Ensure isWalking is false when jumping
+
+            // Play the jump sound
+            if (jumpSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
         }
     }
 
     // Designer
-    public void TransformInput() 
+    public void TransformInput()
     {
         inputContr.TransformToObject();
     }
 
     // Designer
-    public void Transform2Input() 
+    public void Transform2Input()
     {
         inputContr.TransformToCharacter();
     }
 
-    public void ExtendInput() 
-    { 
+    public void ExtendInput()
+    {
         inputContr.ExtendObj();
     }
 
-    public void RetractInput() 
+    public void RetractInput()
     {
         inputContr.RetractObj();
     }
 
-    public void TeleportInput() 
+    public void TeleportInput()
     {
         inputContr.Teleport();
     }
