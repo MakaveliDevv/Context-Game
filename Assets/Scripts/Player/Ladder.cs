@@ -13,7 +13,7 @@ public class Ladder : MonoBehaviour
         if(circleCol == null) 
         {
             // Add a sphere collider
-            circleCol = transform.AddComponent<CircleCollider2D>();
+            circleCol = gameObject.AddComponent<CircleCollider2D>();
             circleCol.isTrigger = true;
             circleCol.radius = radius;
         }

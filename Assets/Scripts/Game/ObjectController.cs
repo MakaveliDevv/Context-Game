@@ -400,7 +400,7 @@ public class Controller : MonoBehaviour
                     var childObj = spriteRenderer.transform.Find("Collider").gameObject;
                     ChildObj = childObj;
                 
-                    var circleCol = childObj.transform.AddComponent<CircleCollider2D>();
+                    var circleCol = childObj.AddComponent<CircleCollider2D>();
                     circleCol.isTrigger = true;
                     circleCol.radius = radius;
                     
