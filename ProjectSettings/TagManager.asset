@@ -20,6 +20,7 @@ TagManager:
   - Ladder
   - connectPoint
   - Timer
+  - SpawnPosition
   layers:
   - Default
   - TransparentFX
