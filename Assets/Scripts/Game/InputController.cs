@@ -55,8 +55,6 @@ public class InputController : Controller
                 } 
             }
         }
-
-        MoveToLadder();
     }
 
     public void ExtendObj() 

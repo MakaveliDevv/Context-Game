@@ -13,16 +13,16 @@ public class Controller : MonoBehaviour
     // Points
     [Header("Points")]
     [SerializeField] protected Transform instantiatePoint;
-    protected Transform extendPoint, collapsePoint, detectPoint; 
-    [SerializeField] protected Vector3 detectPointOffset; 
+    protected Transform extendPoint, collapsePoint, detectPoint;
+    [SerializeField] protected Vector3 detectPointOffset;
 
     // Bools
     [Header("Bools")]
-    public bool isExtending, isRetracting, isCollapsing ,ableToMove, isNegative, isPositive;
+    public bool isExtending, isRetracting, isCollapsing, ableToMove, isNegative, isPositive;
     public bool objectCreated, reached_endPoint, reached_connectPoint, isDestroyed;
-    public bool freeze, transformed;
+    public bool freeze;
     protected bool continueCollapse = true; // Flag to control the collapse process
-
+    private bool isTransformed = false; // Flag to indicate if the artist is transformed
 
     // Floats and such
     [Header("Floats And Such")]
@@ -36,8 +36,8 @@ public class Controller : MonoBehaviour
     [SerializeField] private int rotateSpeed;
     [SerializeField] private float radius;
     private GameObject ChildObj;
-    
-    void Awake() 
+
+    void Awake()
     {
         // ExtendableObject = scriptableObj.extendableObject;
         initlialScale = scriptableObj.initialScale;
@@ -45,7 +45,7 @@ public class Controller : MonoBehaviour
         ableToMove = true;
     }
 
-    protected void CreateObject(ExtendableObj _obj) 
+    protected void CreateObject(ExtendableObj _obj)
     {
         TryGetComponent<PlayerController>(out var player);
 
@@ -77,33 +77,33 @@ public class Controller : MonoBehaviour
             // Instantiate the detect point
             GameObject newDetectPoint = Instantiate(_obj.detectPoint, extendPoint.transform.position - detectPointOffset, Quaternion.identity) as GameObject;
             newDetectPoint.TryGetComponent<DetectPoint>(out var point);
-            
-            PlayerManager playermanag = GetComponent<PlayerManager>(); 
+
+            PlayerManager playermanag = GetComponent<PlayerManager>();
             switch (playermanag.playerType)
             {
-                case(PlayerManager.PlayerType.ARTIST):
+                case PlayerManager.PlayerType.ARTIST:
                     // Set detect point to Brigde type
                     point.connectPoint = Point.ConnectPointType.BRIDGE_TYPE;
                     point.NameTag = "BridgeType";
                     point.tag = point.NameTag;
-                break;
+                    break;
 
-                case(PlayerManager.PlayerType.DEVELOPER):
+                case PlayerManager.PlayerType.DEVELOPER:
                     // Set detect point to Ladder type]
                     point.connectPoint = Point.ConnectPointType.LADDER_TYPE;
                     point.NameTag = "LadderType";
                     point.tag = point.NameTag;
-                break;
+                    break;
 
-                case(PlayerManager.PlayerType.DESIGNER):
+                case PlayerManager.PlayerType.DESIGNER:
                     // Set detect point to Grappling type
                     point.connectPoint = Point.ConnectPointType.GRAPPLING_TYPE;
                     point.NameTag = "GrapplingType";
                     point.tag = point.NameTag;
-                break;
-            }           
-           
-           // Initalize the point to the detectpoint
+                    break;
+            }
+
+            // Initalize the point to the detectpoint
             detectPoint = newDetectPoint.transform;
             newDetectPoint.transform.SetParent(transformObject.transform);
 
@@ -119,9 +119,12 @@ public class Controller : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             ableToMove = false;
+
+            // Set the artist as transformed
+            isTransformed = true;
         }
     }
-      
+
     protected IEnumerator ExtendObject(Transform _extendPoint)
     {
         if (isExtending || reached_endPoint || reached_connectPoint || _extendPoint == null)
@@ -149,12 +152,12 @@ public class Controller : MonoBehaviour
             yield return null;
         }
 
-        if (Mathf.Approximately(_extendPoint.localScale.x, targetScaleX)) 
+        if (Mathf.Approximately(_extendPoint.localScale.x, targetScaleX))
         {
             reached_endPoint = true;
             isExtending = false;
             ableToMove = false;
-            transformed = true;
+            // transformed = true;
         }
     }
 
@@ -163,8 +166,7 @@ public class Controller : MonoBehaviour
         if (isRetracting)
             yield break; // Exit the coroutine if already retracting
 
-   
-        if(isExtending || reached_endPoint || reached_connectPoint) 
+        if (isExtending || reached_endPoint || reached_connectPoint)
         {
             isExtending = false;
             reached_endPoint = false;
@@ -191,7 +193,7 @@ public class Controller : MonoBehaviour
                 yield return null;
             }
 
-            if(_extendPoint.localScale == initlialScale) 
+            if (_extendPoint.localScale == initlialScale)
             {
                 DestroyTransformedObject(transformObject);
                 isRetracting = false;
@@ -209,74 +211,20 @@ public class Controller : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.None;
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 ableToMove = true;
-                transformed = false;
+                // transformed = false;
+
+                // Reset the transformed flag
+                isTransformed = false;
             }
         }
     }
-
-    // Method for reaching the connect point
-    // protected IEnumerator CollapseObject(Transform _collapsePoint)
-    // {
-    //     if (isCollapsing)
-    //         yield break; // Exit the coroutine if already retracting
-
-   
-    //     if(reached_connectPoint) 
-    //     {
-    //         float targetScaleX = 0;
-
-    //         // While the current scale is greater than the target scale
-    //         while (_collapsePoint.localScale.x > 0)
-    //         {
-    //             isCollapsing = true;
-
-    //             // Decrement the retract time
-    //             float newScaleX = _collapsePoint.localScale.x - collapseSpeed * Time.deltaTime;
-
-    //             // Ensure the new scale doesn't go below the target scale
-    //             newScaleX = Mathf.Max(newScaleX, targetScaleX);
-
-    //             // Retract the object
-    //             _collapsePoint.localScale = new Vector3(newScaleX, transformObject.transform.localScale.y, transformObject.transform.localScale.z);
-
-    //             yield return null;
-    //         }
-
-    //         if (Mathf.Approximately(_collapsePoint.localScale.x, targetScaleX)) 
-    //         {
-    //             DestroyTransformedObject(transformObject);
-    //             isCollapsing = false;
-    //             reached_connectPoint = false;
-    //             freeze = false;
-    //             ableToMove = true;
-
-    //             // Set player position to the collapse point position
-    //             transform.position = _collapsePoint.position + teleportOffset;
-
-    //             // Untrigger the collider
-    //             TryGetComponent<CapsuleCollider2D>(out var collider);
-    //             collider.isTrigger = false;
-
-    //             // Enable the sprite renderer
-    //             SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
-    //             sprite.enabled = true; 
-
-    //             // Unfreeze players movement
-    //             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-    //             rb.constraints = RigidbodyConstraints2D.None;
-    //             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-    //             ableToMove = true;
-    //         }
-    //     }
-
-    // }
 
     protected IEnumerator CollapseObject(Transform _collapsePoint)
     {
         if (isCollapsing)
             yield break; // Exit the coroutine if already collapsing
 
-        if (reached_connectPoint)
+        if (reached_connectPoint && transformObject != null)
         {
             float targetScaleX = 0;
 
@@ -294,10 +242,37 @@ public class Controller : MonoBehaviour
                 // Update the scale of the object
                 _collapsePoint.localScale = new Vector3(newScaleX, transformObject.transform.localScale.y, transformObject.transform.localScale.z);
 
+                // Add a sphere collider
+                var script = transformObject.GetComponent<Swag>();
+                var spriteRenderer = script.spriteRenderer;
+
+                if(TryGetComponent<PlayerManager>(out var player) && player.playerType == PlayerManager.PlayerType.ARTIST) 
+                {
+                    var childObj = spriteRenderer.transform.Find("Collider").gameObject;
+                    ChildObj = childObj;
+
+                    var circleCol = childObj.AddComponent<CircleCollider2D>();
+                    circleCol.isTrigger = true;
+                    circleCol.radius = radius;
+
+                    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ChildObj.transform.position, circleCol.radius);
+
+                    foreach (var hitCollider in hitColliders)
+                    {
+                        if (hitCollider != circleCol && hitCollider.gameObject.CompareTag("Ladder"))
+                        {
+                            Debug.Log("Made Contact with the ladder while transformed");
+                            continueCollapse = false;
+                            break;
+                        }
+                    }
+                }
+
                 yield return null;
             }
 
-            if (Mathf.Approximately(_collapsePoint.localScale.x, targetScaleX))
+            // Once the object is collapsed
+            if (Mathf.Approximately(_collapsePoint.localScale.x, targetScaleX) || !continueCollapse)
             {
                 DestroyTransformedObject(transformObject);
                 isCollapsing = false;
@@ -308,8 +283,16 @@ public class Controller : MonoBehaviour
                 // Reset continueCollapse flag
                 continueCollapse = true;
 
-                // Set player position to the collapse point position
-                transform.position = _collapsePoint.position + teleportOffset;
+                // Set player position to the collapse point position or the ladder position
+                if (continueCollapse)
+                {
+                    transform.position = _collapsePoint.position + teleportOffset;
+                }
+                else if(!continueCollapse && isTransformed)
+                {
+                    // Use the ladder position
+                    transform.position = ChildObj.transform.position;
+                }
 
                 // Untrigger the collider
                 TryGetComponent<CapsuleCollider2D>(out var collider);
@@ -329,9 +312,9 @@ public class Controller : MonoBehaviour
     }
 
     // Is for the designer
-    protected void TransformBack() 
+    protected void TransformBack()
     {
-        if(!isExtending && !isRetracting && !isCollapsing && !reached_endPoint && !reached_connectPoint) 
+        if (!isExtending && !isRetracting && !isCollapsing && !reached_endPoint && !reached_connectPoint)
         {
             // Transform back only when not retracting
             TryGetComponent<CapsuleCollider2D>(out var collider);
@@ -346,15 +329,18 @@ public class Controller : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             ableToMove = true;
-            transformed = false;
+            // transformed = false;
 
             DestroyTransformedObject(transformObject);
+
+            // Reset the transformed flag
+            isTransformed = false;
         }
     }
 
     public void RotateObject(float rotationAmount)
     {
-        if(transformObject != null) 
+        if (transformObject != null)
         {
             // Get the current rotation angle
             float currentRotation = transformObject.transform.localRotation.eulerAngles.z;
@@ -374,10 +360,10 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public void Freeze() 
+    public void Freeze()
     {
         // Stop the extending
-        if(coroutine != null) 
+        if (coroutine != null)
             StopCoroutine(coroutine);
 
         isExtending = false;
@@ -385,64 +371,7 @@ public class Controller : MonoBehaviour
         freeze = true;
     }
 
-    protected void MoveToLadder() // For the artist when collapsing and need to teleport onto the ladder
-    {
-        if(TryGetComponent<PlayerManager>(out var player) && player.playerType == PlayerManager.PlayerType.ARTIST) 
-        {
-            if(isCollapsing)
-            {
-                if(transformObject != null) 
-                {
-                    // Add a sphere collider
-                    var script = transformObject.GetComponent<Swag>();
-                    var spriteRenderer = script.spriteRenderer;
-
-                    var childObj = spriteRenderer.transform.Find("Collider").gameObject;
-                    ChildObj = childObj;
-                
-                    var circleCol = childObj.AddComponent<CircleCollider2D>();
-                    circleCol.isTrigger = true;
-                    circleCol.radius = radius;
-                    
-                    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ChildObj.transform.position, circleCol.radius);
-
-                    foreach (var hitCollider in hitColliders)
-                    {
-                        if(hitCollider != circleCol && hitCollider.gameObject.CompareTag("Ladder"))
-                        {
-                            Debug.Log("Made Contact with the ladder");
-                            // StopCoroutine(nameof(CollapseObject));
-                            DestroyTransformedObject(transformObject);
-                            continueCollapse = false;
-                            freeze = false;
-                            isCollapsing = false;
-                            reached_connectPoint = false;
-                            reached_endPoint = false;
-
-                            transform.position = hitCollider.transform.position;
-
-                            // Untrigger the collider
-                            TryGetComponent<CapsuleCollider2D>(out var collider);
-                            collider.isTrigger = false;
-
-                            // Enable the sprite renderer
-                            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
-                            sprite.enabled = true;
-
-                            // Unfreeze players movement
-                            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                            rb.constraints = RigidbodyConstraints2D.None;
-                            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                            ableToMove = true;
-                        }
-                    }
-                }
-            } 
-        }
-    }
-
-
-    bool DestroyTransformedObject(GameObject _gameObject) 
+    bool DestroyTransformedObject(GameObject _gameObject)
     {
         Destroy(_gameObject);
         isDestroyed = true;
@@ -450,11 +379,11 @@ public class Controller : MonoBehaviour
         return false;
     }
 
-    private void OnDrawGizmos() 
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 
-        if(ChildObj != null) 
-            Gizmos.DrawSphere(ChildObj.transform.position, radius); 
+        if (ChildObj != null)
+            Gizmos.DrawSphere(ChildObj.transform.position, radius);
     }
 }

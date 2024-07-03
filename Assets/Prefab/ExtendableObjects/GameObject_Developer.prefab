@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   playerMovingOnLadder: 0
-  radius: 2
+  radius: 1
 --- !u!1 &6118978426563117091
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ TagManager:
   - ExtendPoint_Dev
   - DevObject
   - Ladder
+  - connectPoint
   layers:
   - Default
   - TransparentFX

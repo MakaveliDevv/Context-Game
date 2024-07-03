@@ -24,7 +24,7 @@ public class Ladder : MonoBehaviour
         if (collider.TryGetComponent<PlayerController>(out var player) 
         && collider.TryGetComponent<Rigidbody2D>(out var rb))         
         {        
-            Debug.Log("Made contact with a player");
+            // Debug.Log("Made contact with a player");
             // Set the flag to true when player is detected
             player.playerDetected = true;
             

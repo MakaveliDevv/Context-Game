@@ -164,8 +164,8 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0}
   inputVector: {x: 0, y: 0}
   moveSpeed: 3
-  jumpForce: 4.5
-  groundRadius: 0.5
+  jumpForce: 3
+  groundRadius: 0.25
   isGrounded: 0
   playerDetected: 0
   inputContr: {fileID: 0}
@@ -201,6 +201,7 @@ MonoBehaviour:
   reached_connectPoint: 0
   isDestroyed: 0
   freeze: 0
+  transformed: 0
   teleportOffset: {x: 0.5, y: 0.25, z: 0}
   extendDistance: 3.5
   extendSpeed: 2
@@ -208,6 +209,7 @@ MonoBehaviour:
   rotateMotion: 0
   rotateLimit: 0
   rotateSpeed: 0
+  radius: 1
 --- !u!1001 &9098661235423020976
 PrefabInstance:
   m_ObjectHideFlags: 0
