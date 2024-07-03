@@ -10,8 +10,8 @@ public class Failure : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Reload the current scene
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            other.transform.position = spawnPosition.position;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // other.transform.position = spawnPosition.position;
         }
     }
 }
