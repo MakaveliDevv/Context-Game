@@ -52,6 +52,13 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
     }
 
+    void PlaySoundEffect() 
+    {
+        var spriteRendere_obj = renderer.gameObject;
+        var audioSource = spriteRendere_obj.GetComponent<AudioSource>();
+        audioSource.Play();
+    }
+
     void MovePlayer() 
     {
         if (!playerDetected) // Detected by the ladder
@@ -86,6 +93,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             animator.SetBool("isJumping", true); // Set isJumping when player jumps
             animator.SetBool("isWalking", false); // Ensure isWalking is false when jumping
+
+            PlaySoundEffect();
         }
     }
 

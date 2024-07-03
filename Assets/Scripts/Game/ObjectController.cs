@@ -9,7 +9,10 @@ public class Controller : MonoBehaviour
     [SerializeField] protected ExtendableObj scriptableObj; // Scriptable object
     protected Coroutine coroutine;
     protected GameObject transformObject;
+    private GameObject ladder;
+    [SerializeField] private AudioSource audioSource;
 
+    private GameObject ChildObj;
     // Points
     [Header("Points")]
     [SerializeField] protected Transform instantiatePoint;
@@ -23,6 +26,7 @@ public class Controller : MonoBehaviour
     public bool freeze;
     protected bool continueCollapse = true; // Flag to control the collapse process
     private bool isTransformed = false; // Flag to indicate if the artist is transformed
+    private bool teleportToLadder = false; // Flag to indicate teleportation to ladder
 
     // Floats and such
     [Header("Floats And Such")]
@@ -35,11 +39,11 @@ public class Controller : MonoBehaviour
     [SerializeField] private float rotateLimit;
     [SerializeField] private int rotateSpeed;
     [SerializeField] private float radius;
-    private GameObject ChildObj;
+    [SerializeField] private Vector3 ladderOffset;
 
     void Awake()
     {
-        // ExtendableObject = scriptableObj.extendableObject;
+        audioSource = gameObject.GetComponent<AudioSource>();
         initlialScale = scriptableObj.initialScale;
 
         ableToMove = true;
@@ -54,6 +58,10 @@ public class Controller : MonoBehaviour
         {
             // Instantiate
             transformObject = Instantiate(_obj.extendableObject, instantiatePoint.transform.position, _obj.extendableObject.transform.rotation) as GameObject;
+            
+            // Play sound effect
+            audioSource.Play();
+            
             objectCreated = true;
             isDestroyed = false;
 
@@ -137,6 +145,8 @@ public class Controller : MonoBehaviour
         // Calculate the target scale
         float targetScaleX = initlialScale.x + extendDistance;
 
+        audioSource.Play();
+
         // While the current scale is less than the target scale
         while (_extendPoint != null && _extendPoint.localScale.x < targetScaleX && !isRetracting)
         {
@@ -175,6 +185,8 @@ public class Controller : MonoBehaviour
 
             float targetScaleX = initlialScale.x;
 
+            audioSource.Play();
+            
             // While the current scale is greater than the target scale
             while (_extendPoint.localScale.x > targetScaleX)
             {
@@ -227,7 +239,7 @@ public class Controller : MonoBehaviour
         if (reached_connectPoint && transformObject != null)
         {
             float targetScaleX = 0;
-
+    
             // While the current scale is greater than the target scale and continueCollapse flag is true
             while (_collapsePoint.localScale.x > 0 && continueCollapse)
             {
@@ -246,14 +258,19 @@ public class Controller : MonoBehaviour
                 var script = transformObject.GetComponent<Swag>();
                 var spriteRenderer = script.spriteRenderer;
 
-                if(TryGetComponent<PlayerManager>(out var player) && player.playerType == PlayerManager.PlayerType.ARTIST) 
+                // This is for when having to teleport onto the ladder
+                if (TryGetComponent<PlayerManager>(out var player) && player.playerType == PlayerManager.PlayerType.ARTIST)
                 {
                     var childObj = spriteRenderer.transform.Find("Collider").gameObject;
                     ChildObj = childObj;
 
-                    var circleCol = childObj.AddComponent<CircleCollider2D>();
-                    circleCol.isTrigger = true;
-                    circleCol.radius = radius;
+                    TryGetComponent<CircleCollider2D>(out var circleCol);
+                    if(circleCol == null)
+                    {
+                        circleCol = childObj.AddComponent<CircleCollider2D>();
+                        circleCol.isTrigger = true;
+                        circleCol.radius = radius;
+                    }
 
                     Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ChildObj.transform.position, circleCol.radius);
 
@@ -261,8 +278,14 @@ public class Controller : MonoBehaviour
                     {
                         if (hitCollider != circleCol && hitCollider.gameObject.CompareTag("Ladder"))
                         {
+                            ladder = hitCollider.gameObject;
                             Debug.Log("Made Contact with the ladder while transformed");
+                            teleportToLadder = true;
                             continueCollapse = false;
+                            isCollapsing = false;
+
+                            audioSource.Play();
+
                             break;
                         }
                     }
@@ -272,7 +295,7 @@ public class Controller : MonoBehaviour
             }
 
             // Once the object is collapsed
-            if (Mathf.Approximately(_collapsePoint.localScale.x, targetScaleX) || !continueCollapse)
+            if (Mathf.Approximately(_collapsePoint.localScale.x, targetScaleX) || teleportToLadder)
             {
                 DestroyTransformedObject(transformObject);
                 isCollapsing = false;
@@ -280,18 +303,23 @@ public class Controller : MonoBehaviour
                 freeze = false;
                 ableToMove = true;
 
-                // Reset continueCollapse flag
+                // Reset continueCollapse and teleportToLadder flags
                 continueCollapse = true;
 
                 // Set player position to the collapse point position or the ladder position
-                if (continueCollapse)
+                if (!teleportToLadder)
                 {
                     transform.position = _collapsePoint.position + teleportOffset;
                 }
-                else if(!continueCollapse && isTransformed)
+                else
                 {
-                    // Use the ladder position
-                    transform.position = ChildObj.transform.position;
+                    // Use the ladder position and adjust the offset values
+                    transform.position = ladder.transform.position + ladderOffset;
+
+                    // Debugging: Visualize the calculated position
+                    Debug.Log("Teleporting to Ladder at: " + (ChildObj.transform.position + ladderOffset).ToString());
+
+                    teleportToLadder = false;
                 }
 
                 // Untrigger the collider
@@ -310,7 +338,7 @@ public class Controller : MonoBehaviour
             }
         }
     }
-
+    
     // Is for the designer
     protected void TransformBack()
     {
@@ -340,7 +368,7 @@ public class Controller : MonoBehaviour
 
     public void RotateObject(float rotationAmount)
     {
-        if (transformObject != null)
+        if (transformObject != null && isTransformed && !reached_connectPoint && !reached_endPoint && !isExtending && !isRetracting)
         {
             // Get the current rotation angle
             float currentRotation = transformObject.transform.localRotation.eulerAngles.z;
@@ -379,7 +407,7 @@ public class Controller : MonoBehaviour
         return false;
     }
 
-    private void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 

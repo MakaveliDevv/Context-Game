@@ -20,4 +20,15 @@ public class StartScene : MonoBehaviour
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
         SceneManager.LoadScene(nextSceneIndex);
     }
+
+    public void LoadGame() 
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void ExitGame() 
+    {
+        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
 }

@@ -3,18 +3,20 @@ using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    public float speed = 6f;
-    public bool playerMovingOnLadder = false;
-    public float radius = 2f;
+    [SerializeField] private float speed = 6f;
+    private bool playerMovingOnLadder;
+    [SerializeField] private float radius = .25f;
+    [SerializeField] private Vector2 colliderOffset = new();
     private CircleCollider2D circleCol;
 
-    private void Update() 
+    private void Start() 
     {
         if(circleCol == null) 
         {
-            // Add a sphere collider
+            // Add a circle collider
             circleCol = gameObject.AddComponent<CircleCollider2D>();
             circleCol.isTrigger = true;
+            circleCol.offset = colliderOffset;
             circleCol.radius = radius;
         }
     }
@@ -29,23 +31,22 @@ public class Ladder : MonoBehaviour
             player.playerDetected = true;
             
             // Handle vertical movement here if needed
-            player.inputDirection = new(0, player.inputVector.y);
-
+            player.inputDirection = new Vector2(0, player.inputVector.y);
 
             if(player.inputDirection.y > 0) 
             {
                 playerMovingOnLadder = true;
-                rb.velocity = new(0, speed); // Up
+                rb.velocity = new Vector2(0, speed); // Up
             } 
             else if(player.inputDirection.y < 0) 
             {
                 playerMovingOnLadder = true;
-                rb.velocity = new(0, -speed); // Down
+                rb.velocity = new Vector2(0, -speed); // Down
             } 
             else 
             {
                 playerMovingOnLadder = false;
-                rb.velocity = new(0, rb.velocity.y); // No input
+                rb.velocity = new Vector2(0, rb.velocity.y); // No input
             }
         }
     }
@@ -58,10 +59,9 @@ public class Ladder : MonoBehaviour
         } 
     }
 
-
-    private void OnDrawGizmos() 
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, radius);
-    }
+    // private void OnDrawGizmos() 
+    // {
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawWireSphere(transform.position, radius);
+    // }
 }

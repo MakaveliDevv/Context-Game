@@ -19,6 +19,7 @@ TagManager:
   - DevObject
   - Ladder
   - connectPoint
+  - Timer
   layers:
   - Default
   - TransparentFX

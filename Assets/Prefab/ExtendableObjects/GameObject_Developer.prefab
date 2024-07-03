@@ -192,9 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca32221e5a6b97a418d8a703bf11fb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  playerMovingOnLadder: 0
-  radius: 1
+  speed: 3
+  radius: 0.25
+  colliderOffset: {x: 3.5, y: -3.5}
 --- !u!1 &6118978426563117091
 GameObject:
   m_ObjectHideFlags: 0
