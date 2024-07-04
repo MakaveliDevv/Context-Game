@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        
         spawnPositions.Clear();
         playersInGame.Clear();
 

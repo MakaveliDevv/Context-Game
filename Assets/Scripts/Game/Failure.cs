@@ -2,14 +2,6 @@ using UnityEngine;
 
 public class Failure : MonoBehaviour
 {
-    // [SerializeField] private GameManager gameManager;
-    
-    // void Start() 
-    // {
-    //     gameManager = GameObject.FindAnyObjectByType<GameManager>();
-    // }
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player has collided with the trigger

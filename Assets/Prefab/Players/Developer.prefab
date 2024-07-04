@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5351341571963745013}
   - component: {fileID: 7911190426243235080}
   - component: {fileID: 4953114074525949643}
+  - component: {fileID: 1011245978215961445}
   m_Layer: 0
   m_Name: Developer
   m_TagString: Player
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 565569770838857197}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.8466434, y: 0.14364147, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -173,7 +174,7 @@ MonoBehaviour:
   isDestroyed: 0
   freeze: 0
   teleportOffset: {x: 0, y: 0.7, z: 0}
-  extendDistance: 3.5
+  extendDistance: 5
   extendSpeed: 2
   collapseSpeed: 0.5
   rotateMotion: 0
@@ -277,6 +278,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1011245978215961445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565569770838857197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e76724399d0dd841bd9e3e9af4512ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 1
 --- !u!1 &8963029996015348584
 GameObject:
   m_ObjectHideFlags: 0

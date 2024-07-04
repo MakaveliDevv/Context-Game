@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     protected GameObject transformObject;
     private GameObject ladder;
     [SerializeField] private AudioSource audioSource;
-
+    public PlayerManager playerManager;
     private GameObject ChildObj;
     // Points
     [Header("Points")]
@@ -43,6 +43,7 @@ public class Controller : MonoBehaviour
 
     void Awake()
     {
+        playerManager = PlayerManager.instance;
         audioSource = gameObject.GetComponent<AudioSource>();
         initlialScale = scriptableObj.initialScale;
 
