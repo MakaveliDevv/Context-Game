@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 170805647998761099}
   - component: {fileID: 8125761070545027117}
-  - component: {fileID: 5707325142566946935}
   - component: {fileID: 6161730408335627309}
   m_Layer: 0
   m_Name: PlayerInput
@@ -224,18 +223,6 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5707325142566946935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8484355640017131848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73d4a0f2faa813544a872a0da43feb09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6161730408335627309
 MonoBehaviour:
   m_ObjectHideFlags: 0

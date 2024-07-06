@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 2338041633523597288}
   - component: {fileID: 6396231762966902662}
   - component: {fileID: 5511376620877138308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: betasten-export
   m_TagString: Untagged
   m_Icon: {fileID: 0}

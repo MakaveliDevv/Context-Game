@@ -7,8 +7,11 @@ public class FindPlayers : MonoBehaviour
     [SerializeField] private CinemachineTargetGroup cinemachine;
     [SerializeField] private GameManager gameManager;
 
-    void Start()
+    void Update()
     {
+        if(gameManager != null)
+            return;
+            
         gameManager = GameObject.FindAnyObjectByType<GameManager>();
 
         // Ensure the CinemachineTargetGroup is not null

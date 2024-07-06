@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
+    public string sceneName;
+    void Awake() 
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -23,7 +29,7 @@ public class StartScene : MonoBehaviour
 
     public void LoadGame() 
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame() 

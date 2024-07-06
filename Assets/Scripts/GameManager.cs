@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeLimit = 600f; // 10 minutes
     [SerializeField] private AudioClip[] sounds;
     private AudioSource audioSource;
-    [SerializeField] private int loadSceneDelay = 3;
+    [SerializeField] private float loadSceneDelay = 1.5f;
     private bool gameOver;
     public List<GameObject> players = new();
     public List<GameObject> playersInGame = new();
@@ -52,11 +51,39 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (currentSceneName == "Tutorial")
+        {
+            if (timerText == null)
+            {
+                Debug.Log("TimerText is null in Update, trying to find it.");
+                var timerTextGameObj = GameObject.FindGameObjectWithTag("Timer");
+                if (timerTextGameObj != null)
+                {
+                    timerText = timerTextGameObj.GetComponent<TextMeshProUGUI>();
+                }
+            }
+
+            if (timerText != null && !timerText.gameObject.activeInHierarchy)
+            {
+                Debug.Log("Activating TimerText in Update.");
+                timerText.gameObject.SetActive(true);
+            }
+        }
+        else if (currentSceneName == "GameOver" || currentSceneName == "StartScene")
+        {
+            return;
+        }
+
         if (!gameOver)
         {
             elapsedGameplayTime -= Time.deltaTime;
             UpdateTimerText(elapsedGameplayTime);
-            ReachedTimeLimit();
+            if (HasReachedTimeLimit())
+            {
+                TriggerGameOver();
+            }
         }
     }
 
@@ -64,45 +91,31 @@ public class GameManager : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(time / 60F);
         int seconds = Mathf.FloorToInt(time - minutes * 60);
-        int milliseconds = Mathf.FloorToInt((time * 1000) % 1000);
         if (timerText != null)
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    public bool HasReachedTimeLimit()
+    private bool HasReachedTimeLimit()
     {
-        return elapsedGameplayTime <= 0;
+        return elapsedGameplayTime <= 0.03f;
     }
 
-    private void ReachedTimeLimit()
+    private void TriggerGameOver()
     {
-        if (HasReachedTimeLimit())
-        {
-            gameOver = true;
+        gameOver = true;
+        elapsedGameplayTime = 0f;
+        audioSource.clip = sounds[1];
+        audioSource.Play();
 
-            audioSource.clip = sounds[1];
-            audioSource.Play();
-            elapsedGameplayTime = 0f;
-
-            StartCoroutine(DelayedLoadScene("GameOverScene", loadSceneDelay));
-        }
-    }
-
-    private IEnumerator DelayedLoadScene(string sceneName, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (timerText != null)
-            timerText.gameObject.SetActive(false);
-
-        gameOver = false;
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("GameOver");
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("Scene loaded: " + scene.name);
+
         Cursor.lockState = CursorLockMode.Locked;
-        
+
         spawnPositions.Clear();
         playersInGame.Clear();
 
@@ -112,18 +125,14 @@ public class GameManager : MonoBehaviour
         {
             spawnPositions.Add(spawnPositionsInScene[i].transform);
         }
-        
+
         // Ensure there are enough spawn positions for all players
-        if(players.Count <= spawnPositions.Count) 
+        if (players.Count <= spawnPositions.Count)
         {
             for (int i = 0; i < players.Count; i++)
             {
                 Instantiate(players[i], spawnPositions[i].position, Quaternion.identity);
             }
-        }
-        else 
-        {
-            Debug.LogError("Not enough spawn positions for all players");
         }
 
         // Find the players in game
@@ -133,18 +142,41 @@ public class GameManager : MonoBehaviour
             playersInGame.Add(PlayersInGame[i]);
         }
 
-        // Find timer
-        var timerText_gameObj = GameObject.FindGameObjectWithTag("Timer");
-        if (timerText_gameObj != null)
-        {
-            timerText = timerText_gameObj.GetComponent<TextMeshProUGUI>();
-            timerText.gameObject.SetActive(true);
+        // Use a coroutine to delay the timer fetch
+        StartCoroutine(FetchTimerWithDelay(scene));
+    }
 
-            // Reset the timer only if it's the GameOverScene or StartScene
-            if (scene.name == "GameOverScene" || scene.name == "StartScene")
+    private IEnumerator FetchTimerWithDelay(Scene scene)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        var timerTextGameObj = GameObject.FindGameObjectWithTag("Timer");
+        if (timerTextGameObj != null)
+        {
+            timerText = timerTextGameObj.GetComponent<TextMeshProUGUI>();
+            Debug.Log("TimerText fetched successfully in OnSceneLoaded.");
+        }
+        else
+        {
+            Debug.Log("Failed to fetch TimerText in OnSceneLoaded.");
+        }
+
+        // Reset the timer only if it's the GameOver or StartScene
+        if (scene.name == "GameOver" || scene.name == "StartScene")
+        {
+            elapsedGameplayTime = timeLimit;
+            gameOver = false;
+
+            if (timerText != null)
             {
-                elapsedGameplayTime = timeLimit;
+                timerText.gameObject.SetActive(false);
+                Debug.Log("TimerText deactivated in OnSceneLoaded.");
             }
+        }
+        else if (scene.name == "Tutorial" && timerText != null)
+        {
+            timerText.gameObject.SetActive(true);
+            Debug.Log("TimerText activated in OnSceneLoaded.");
         }
     }
 }
