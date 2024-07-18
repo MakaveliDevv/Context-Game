@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableObj: {fileID: 11400000, guid: d787d775235354a4ebf86eb30b5d2acf, type: 2}
   audioSource: {fileID: 0}
+  playerManager: {fileID: 0}
   instantiatePoint: {fileID: 7177846130640709248}
   detectPointOffset: {x: 0, y: 0, z: 0}
   isExtending: 0
@@ -174,7 +175,7 @@ MonoBehaviour:
   isDestroyed: 0
   freeze: 0
   teleportOffset: {x: 0, y: 0.7, z: 0}
-  extendDistance: 5
+  extendDistance: 7.5
   extendSpeed: 2
   collapseSpeed: 0.5
   rotateMotion: 0
@@ -290,7 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e76724399d0dd841bd9e3e9af4512ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 1
 --- !u!1 &8963029996015348584
 GameObject:
   m_ObjectHideFlags: 0
